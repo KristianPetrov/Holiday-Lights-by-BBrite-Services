@@ -1,5 +1,4 @@
-// Central business details. Anything marked TODO is a placeholder that
-// should be replaced with the real value before launch.
+// Central business details used across the site.
 
 export const site = {
   name: "Holiday Lights by BBrite Services",
@@ -12,11 +11,9 @@ export const site = {
   description:
     "Holiday Lights by BBrite Services designs, installs, and takes down custom Christmas light displays across Orange County. 20 years of bringing the Christmas spirit home.",
 
-  // TODO: replace with the real phone number and email.
-  phoneDisplay: "(000) 000-0000",
-  phoneHref: "tel:+10000000000",
-  email: "hello@holidaylightsoc.com",
-  isContactPlaceholder: true,
+  phoneDisplay: "(714) 876-7622",
+  phoneHref: "tel:+17148767622",
+  email: "bbriteservices@gmail.com",
 
   pricing: {
     typical: { min: 1000, max: 3000 },

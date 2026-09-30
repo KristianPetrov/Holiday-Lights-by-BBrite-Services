@@ -110,7 +110,8 @@ export default function Home() {
     description: site.description,
     ...(logo ? { logo: `${site.url}${logo}` } : {}),
     ...(hero ? { image: `${site.url}${hero.src}` } : {}),
-    ...(site.isContactPlaceholder ? {} : { telephone: site.phoneDisplay, email: site.email }),
+    telephone: "+1-714-876-7622",
+    email: site.email,
     priceRange: `${formatUsd(pricing.typical.min)}-${formatUsd(pricing.showstopper.max)}`,
     areaServed: {
       "@type": "AdministrativeArea",

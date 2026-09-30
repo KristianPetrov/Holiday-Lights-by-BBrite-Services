@@ -16,7 +16,6 @@ pnpm build    # production build
 ## Business details
 
 Phone, email, pricing, and service-area cities live in `lib/site.ts`.
-The phone number and email there are **placeholders** until the real ones are filled in.
 
 ## Photos and logo
 
