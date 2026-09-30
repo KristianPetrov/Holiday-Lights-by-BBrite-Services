@@ -26,6 +26,8 @@ The site finds images in `public/` automatically at build time:
 - Images in a folder whose name mentions crew, install, workers, team, or progress
   (for example `crew/` or `Installing/`) appear in the "Behind the Glow" crew section.
 - Images in any other folder (for example `houses/`) appear in the "Our Work" gallery.
-  The first house photo (by file name) is the big hero background and the social share image.
+  Photos listed in `FEATURED` in `lib/images.ts` lead the gallery in that order (the first is the
+  hero background), and `HIDDEN` skips near-duplicates.
+- `public/og-image.jpg` is the 1200x630 image shown when the link is shared.
 
 Supported formats: jpg, png, webp, avif, gif.

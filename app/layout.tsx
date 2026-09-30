@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
 import { site } from "@/lib/site";
@@ -15,8 +17,11 @@ const body = Manrope({
   subsets: ["latin"],
 });
 
+// public/og-image.jpg is a 1200x630 share card; fall back to a photo if it's missing.
 const { houses, logo } = getSiteImages();
-const shareImage = houses[0]?.src ?? logo ?? undefined;
+const shareImage = fs.existsSync(path.join(process.cwd(), "public/og-image.jpg"))
+  ? "/og-image.jpg"
+  : (houses[0]?.src ?? logo ?? undefined);
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -44,7 +49,7 @@ export const metadata: Metadata = {
     title: `${site.name} | Orange County Christmas Lights`,
     description: site.description,
     locale: "en_US",
-    ...(shareImage ? { images: [{ url: shareImage, alt: site.name }] } : {}),
+    ...(shareImage ? { images: [{ url: shareImage, width: 1200, height: 630, alt: site.name }] } : {}),
   },
   twitter: {
     card: "summary_large_image",

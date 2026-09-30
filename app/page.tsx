@@ -98,7 +98,7 @@ function SectionHeading({ eyebrow, title, children }: { eyebrow: string; title: 
 }
 
 export default function Home() {
-  const { logo, houses, crew } = getSiteImages();
+  const { logo, emblem, houses, crew } = getSiteImages();
   const hero = houses[0];
 
   const jsonLd = {
@@ -148,7 +148,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-night via-night/80 to-night/20" />
           <div className="absolute inset-0 bg-gradient-to-t from-night via-transparent to-night/60" />
           <Snow />
-          <StringLights className="absolute inset-x-0 top-16 h-16 sm:top-18 sm:h-20" swags={7} />
+          <StringLights className="absolute inset-x-0 top-20 h-16 sm:h-20" swags={7} />
 
           <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
             <div className="max-w-3xl">
@@ -474,8 +474,15 @@ export default function Home() {
         <StringLights className="absolute inset-x-0 -top-1 h-12 opacity-80" swags={10} bulbsPerSwag={4} />
         <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-10 pt-20 sm:px-8 md:grid-cols-3">
           <div>
-            {logo ? (
-              <Image src={logo} alt={`${site.name} logo`} width={200} height={70} className="h-14 w-auto object-contain" />
+            {emblem ? (
+              <Image
+                src={emblem}
+                alt={`${site.name} logo`}
+                width={1254}
+                height={1254}
+                sizes="144px"
+                className="h-36 w-36 rounded-2xl object-contain"
+              />
             ) : (
               <p className="font-display text-2xl font-semibold text-gold-gradient">Holiday Lights</p>
             )}
