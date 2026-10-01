@@ -12,6 +12,17 @@ const { pricing } = site;
 const typicalRange = `${formatUsd(pricing.typical.min)}–${formatUsd(pricing.typical.max)}`;
 const showRange = `${formatUsd(pricing.showstopper.min)}–${formatUsd(pricing.showstopper.max)}`;
 
+/** A price range that wraps after the dash instead of overflowing a narrow card. */
+function PriceRange({ min, max }: { min: number; max: number }) {
+  return (
+    <>
+      <span className="whitespace-nowrap">{formatUsd(min)}–</span>
+      <wbr />
+      <span className="whitespace-nowrap">{formatUsd(max)}</span>
+    </>
+  );
+}
+
 const services = [
   {
     title: "Custom Design",
@@ -144,15 +155,15 @@ export default function Home() {
 
       <main id="top">
         {/* ---------------- Hero ---------------- */}
-        <section className="relative flex min-h-[100svh] items-end overflow-hidden pb-20 pt-32 sm:items-center sm:pb-24">
+        <section className="relative flex min-h-[100svh] items-center overflow-hidden pb-20 pt-36 sm:pb-24">
           <Photo img={hero} sizes="100vw" preload className="!absolute inset-0 scale-105" />
-          <div className="absolute inset-0 bg-gradient-to-r from-night via-night/80 to-night/20" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(5_7_13/0.82)_0%,rgb(5_7_13/0.55)_55%,rgb(5_7_13/0.35)_100%)]" />
           <div className="absolute inset-0 bg-gradient-to-t from-night via-transparent to-night/60" />
           <Snow />
           <StringLights className="absolute inset-x-0 top-20 h-16 sm:h-20" swags={7} />
 
           <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
-            <div className="max-w-3xl">
+            <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
               {logo && (
                 <Image
                   src={logo}
@@ -161,20 +172,21 @@ export default function Home() {
                   height={1024}
                   sizes="(min-width: 1024px) 440px, (min-width: 640px) 380px, 280px"
                   preload
-                  className="-ml-1 mb-8 h-auto w-[280px] drop-shadow-[0_0_40px_rgb(244_197_106/0.35)] sm:w-[380px] lg:w-[440px]"
+                  className="mb-8 h-auto w-[280px] drop-shadow-[0_0_40px_rgb(244_197_106/0.35)] sm:w-[380px] lg:w-[440px]"
                 />
               )}
-              <p className="eyebrow flex items-center gap-3">
-                <span className="h-px w-10 bg-gold" /> Orange County · {site.yearsInBusiness} Years of Holiday Magic
+              <p className="eyebrow flex items-center justify-center gap-3">
+                <span className="hidden h-px w-10 bg-gold sm:block" /> Orange County · {site.yearsInBusiness} Years of
+                Holiday Magic <span className="hidden h-px w-10 bg-gold sm:block" />
               </p>
-              <h1 className="mt-6 font-display text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
+              <h1 className="mt-6 text-balance font-display text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
                 We bring the <span className="text-gold-gradient text-glow italic">Christmas spirit</span> home.
               </h1>
-              <p className="mt-8 max-w-xl text-lg leading-relaxed text-snow/80 sm:text-xl">
+              <p className="mt-8 max-w-xl text-lg leading-relaxed text-snow/85 sm:text-xl">
                 Custom Christmas light design, professional installation, and takedown after the holidays.
                 You dream it. We light it.
               </p>
-              <div className="mt-10 flex flex-wrap gap-4">
+              <div className="mt-10 flex flex-wrap justify-center gap-4">
                 <a href="#contact" className="btn-primary">
                   Get Your Free Quote
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -228,7 +240,7 @@ export default function Home() {
               </div>
             </Reveal>
 
-            <Reveal delay={150}>
+            <Reveal delay={80}>
               <p className="eyebrow">Our Story</p>
               <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
                 Twenty years of turning houses into <span className="italic text-gold-gradient">holiday memories.</span>
@@ -266,7 +278,7 @@ export default function Home() {
             </SectionHeading>
             <ul className="mt-16 grid gap-6 md:grid-cols-3">
               {services.map((s, i) => (
-                <Reveal as="li" key={s.title} delay={i * 120} className="glow-card rounded-3xl p-8">
+                <Reveal as="li" key={s.title} delay={i * 60} className="glow-card rounded-3xl p-8">
                   <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-gold/25 to-ember/10 text-gold ring-1 ring-gold/30">
                     <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8">
                       {s.icon}
@@ -320,7 +332,7 @@ export default function Home() {
                 Straight lines, even spacing, clean connections, and no loose wires. Our installers treat
                 your home like their own, because a great display is built one clip at a time.
               </p>
-              <ul className="mt-8 space-y-3 text-snow/90">
+              <ul className="mb-10 mt-8 space-y-3 text-snow/90">
                 {["Experienced, careful installers", "Clean wraps on trees and landscaping", "Straight, even rooflines", "Full takedown after the season"].map((t) => (
                   <li key={t} className="flex items-center gap-3">
                     <span className="h-2.5 w-2.5 rounded-full bg-gold shadow-[0_0_12px_var(--gold)]" />
@@ -329,7 +341,7 @@ export default function Home() {
                 ))}
               </ul>
             </Reveal>
-            <Reveal delay={150}>
+            <Reveal delay={80}>
               {crew.length > 1 ? (
                 <Gallery images={crew} limit={5} compact />
               ) : (
@@ -350,7 +362,7 @@ export default function Home() {
             <ol className="relative mt-16 grid gap-6 md:grid-cols-5">
               <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent md:block" />
               {steps.map((s, i) => (
-                <Reveal as="li" key={s.title} delay={i * 100} className="relative">
+                <Reveal as="li" key={s.title} delay={i * 50} className="relative">
                   <span className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-gold/40 bg-night font-display text-xl font-semibold text-gold shadow-[0_0_30px_-5px_var(--gold)]">
                     {i + 1}
                   </span>
@@ -368,46 +380,69 @@ export default function Home() {
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
             <SectionHeading eyebrow="Pricing" title="Honest pricing. Unforgettable results.">
               Every home is different, so every quote is custom and free. Here&apos;s what most of our
-              customers invest.
+              customers invest, plus custom projects quoted on their own.
             </SectionHeading>
-            <div className="mx-auto mt-16 grid max-w-5xl gap-6 md:grid-cols-2">
-              <Reveal className="glow-card rounded-3xl p-10">
+            <div className="mx-auto mt-16 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <Reveal className="glow-card flex flex-col rounded-3xl p-8 sm:p-10 lg:p-8">
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-mist">Most Homes</p>
-                <p className="mt-4 whitespace-nowrap font-display text-4xl font-semibold sm:text-5xl">{typicalRange}</p>
+                <p className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">
+                  <PriceRange {...pricing.typical} />
+                </p>
                 <p className="mt-4 leading-relaxed text-mist">
                   Beautiful, professionally installed displays for the typical Orange County home, designed
                   around your style and your budget.
                 </p>
-                <ul className="mt-8 space-y-3 text-snow/90">
+                <ul className="mb-10 mt-8 space-y-3 text-snow/90">
                   {["Custom design consultation", "Rooflines, trees, and landscaping", "Professional installation", "Post-Christmas takedown"].map((t) => (
                     <li key={t} className="flex items-start gap-3">
                       <Check /> {t}
                     </li>
                   ))}
                 </ul>
-                <a href="#contact" className="btn-ghost mt-10">
+                <a href="#contact" className="btn-ghost mt-auto self-start">
                   Get My Quote
                 </a>
               </Reveal>
-              <Reveal delay={120} className="glow-card relative rounded-3xl border-gold/40 bg-gradient-to-b from-gold/10 to-transparent p-10">
+              <Reveal delay={60} className="glow-card relative flex flex-col rounded-3xl border-gold/40 bg-gradient-to-b from-gold/10 to-transparent p-8 sm:p-10 lg:p-8">
                 <span className="absolute -top-3 right-8 rounded-full bg-gradient-to-r from-berry to-ember px-4 py-1 text-xs font-bold uppercase tracking-[0.2em]">
                   Showstopper
                 </span>
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Large &amp; Extravagant</p>
-                <p className="mt-4 whitespace-nowrap font-display text-4xl font-semibold text-gold-gradient sm:text-5xl">{showRange}</p>
+                <p className="mt-4 font-display text-4xl font-semibold leading-tight text-gold-gradient sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">
+                  <PriceRange {...pricing.showstopper} />
+                </p>
                 <p className="mt-4 leading-relaxed text-mist">
                   For the homes that become a neighborhood destination. Big properties, bold ideas, and
                   displays designed to stop traffic.
                 </p>
-                <ul className="mt-8 space-y-3 text-snow/90">
+                <ul className="mb-10 mt-8 space-y-3 text-snow/90">
                   {["Everything in a classic display", "Large-scale, whole-property design", "Trees, yards, and architectural features", "Post-Christmas takedown"].map((t) => (
                     <li key={t} className="flex items-start gap-3">
                       <Check /> {t}
                     </li>
                   ))}
                 </ul>
-                <a href="#contact" className="btn-primary mt-10">
+                <a href="#contact" className="btn-primary mt-auto self-start">
                   Dream Big With Us
+                </a>
+              </Reveal>
+              <Reveal delay={120} className="glow-card flex flex-col rounded-3xl p-8 sm:p-10 lg:p-8 md:col-span-2 lg:col-span-1">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-ice">Custom</p>
+                <p className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">Quoted for you</p>
+                <p className="mt-4 leading-relaxed text-mist">
+                  Have something truly unique in mind that takes more than just lights? Tell us exactly what
+                  you want to create and we&apos;ll put together a custom quote, since every one-of-a-kind
+                  project is different.
+                </p>
+                <ul className="mb-10 mt-8 space-y-3 text-snow/90">
+                  {["One-of-a-kind ideas and new concepts", "Projects that go beyond lights", "Planned around your exact vision", "Priced by quote, project by project"].map((t) => (
+                    <li key={t} className="flex items-start gap-3">
+                      <Check /> {t}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#contact" className="btn-ghost mt-auto self-start">
+                  Tell Us Your Idea
                 </a>
               </Reveal>
             </div>
@@ -474,7 +509,7 @@ export default function Home() {
                 </p>
               </div>
             </Reveal>
-            <Reveal delay={150} className="rounded-3xl border border-white/10 bg-night/70 p-6 backdrop-blur-xl sm:p-10">
+            <Reveal delay={80} className="rounded-3xl border border-white/10 bg-night/70 p-6 backdrop-blur-xl sm:p-10">
               <ContactForm email={site.email} />
             </Reveal>
           </div>

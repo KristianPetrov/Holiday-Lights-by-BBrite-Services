@@ -54,6 +54,7 @@ export default function ContactForm({ email }: { email: string }) {
         <select name="size" className={field} defaultValue="Classic home display">
           <option className="bg-night">Classic home display</option>
           <option className="bg-night">Full showstopper (roofline, trees, yard)</option>
+          <option className="bg-night">Something custom and one-of-a-kind</option>
           <option className="bg-night">Business or commercial property</option>
           <option className="bg-night">Not sure yet, help me decide</option>
         </select>
@@ -64,7 +65,7 @@ export default function ContactForm({ email }: { email: string }) {
           name="message"
           rows={4}
           className={field}
-          placeholder="Rooflines, trees, colors, warm white or multicolor... anything you have in mind."
+          placeholder="Rooflines, trees, colors, warm white or multicolor... For custom projects, describe exactly what you want to create."
         />
       </label>
       <div className="flex flex-col items-start gap-3 sm:col-span-2 sm:flex-row sm:items-center">
