@@ -153,10 +153,21 @@ export default function Home() {
 
           <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
             <div className="max-w-3xl">
+              {logo && (
+                <Image
+                  src={logo}
+                  alt={`${site.name} logo`}
+                  width={1536}
+                  height={1024}
+                  sizes="(min-width: 1024px) 440px, (min-width: 640px) 380px, 280px"
+                  preload
+                  className="-ml-1 mb-8 h-auto w-[280px] drop-shadow-[0_0_40px_rgb(244_197_106/0.35)] sm:w-[380px] lg:w-[440px]"
+                />
+              )}
               <p className="eyebrow flex items-center gap-3">
                 <span className="h-px w-10 bg-gold" /> Orange County · {site.yearsInBusiness} Years of Holiday Magic
               </p>
-              <h1 className="mt-6 font-display text-5xl font-semibold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
+              <h1 className="mt-6 font-display text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
                 We bring the <span className="text-gold-gradient text-glow italic">Christmas spirit</span> home.
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-snow/80 sm:text-xl">
