@@ -94,41 +94,43 @@ export default function RooflineEstimator({ address, city, onUse }: {
   }
   const measuredFeet = selected ? lengthFeet(selected.ring, true) : 0;
   const viewingPoint = selected ? buildingCenter(selected) : location?.point;
-  const controls = "rounded-lg border border-white/20 px-3 py-2 text-sm font-semibold text-snow hover:border-gold disabled:opacity-40";
+  const controls = "rounded-lg border border-white/20 px-2 py-1.5 text-xs font-semibold text-snow hover:border-gold disabled:opacity-40";
 
   return (
-    <div className="space-y-3 sm:col-span-2">
-      <p className="font-semibold text-snow">Find your house &amp; estimate the lights</p>
-      <p className="text-sm leading-relaxed text-mist">Tap the outline around your house. We automatically calculate its approximate full perimeter and update your price estimate.</p>
-      <button type="button" onClick={locate} disabled={busy} className={controls}>{busy ? "Finding your house…" : "Find My House"}</button>
-      <p className="text-xs leading-relaxed text-mist">Finding your house sends only the street address and city to the U.S. Census address service. Aerial imagery is supplied by USGS.</p>
+    <div className="col-span-2 space-y-2">
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-sm font-semibold text-snow">Select your house</p>
+        <button type="button" onClick={locate} disabled={busy} className={controls}>{busy ? "Finding…" : visible ? "Find Again" : "Find My House"}</button>
+      </div>
+      {!visible && <p className="text-xs text-mist">Enter your address and city above, then find your house. Address lookup uses U.S. Census.</p>}
       {error && <p role="alert" className="text-sm text-gold">{error}</p>}
       {visible && location && (
-        <div className="space-y-3">
-          <p className="text-sm text-mist">Located: {location.matchedAddress}. Confirm your house below; the address marker may be on the street.</p>
-          <div className="flex flex-wrap gap-2">
-            <button type="button" className={controls} disabled={width <= 60} onClick={() => setWidth((w) => Math.max(60, w / 2))}>Zoom in</button>
-            <button type="button" className={controls} disabled={width >= 480} onClick={() => setWidth((w) => Math.min(480, w * 2))}>Zoom out</button>
-            <button type="button" className={controls} onClick={() => pan(-1, 0)} aria-label="Move view west">←</button>
-            <button type="button" className={controls} onClick={() => pan(0, 1)} aria-label="Move view north">↑</button>
-            <button type="button" className={controls} onClick={() => pan(0, -1)} aria-label="Move view south">↓</button>
-            <button type="button" className={controls} onClick={() => pan(1, 0)} aria-label="Move view east">→</button>
-            {selected && <button type="button" className={controls} onClick={() => {
+        <div className="space-y-2">
+          <p className="truncate text-xs text-mist" title={location.matchedAddress}>{location.matchedAddress}</p>
+          <div className="flex flex-wrap items-center gap-1">
+            <button type="button" className={`${controls} min-h-8 min-w-8 text-base`} aria-label="Zoom in" disabled={width <= 60} onClick={() => setWidth((w) => Math.max(60, w / 2))}>+</button>
+            <button type="button" className={`${controls} min-h-8 min-w-8 text-base`} aria-label="Zoom out" disabled={width >= 480} onClick={() => setWidth((w) => Math.min(480, w * 2))}>−</button>
+            <button type="button" className={`${controls} min-h-8 min-w-8`} onClick={() => pan(-1, 0)} aria-label="Move view west">←</button>
+            <button type="button" className={`${controls} min-h-8 min-w-8`} onClick={() => pan(0, 1)} aria-label="Move view north">↑</button>
+            <button type="button" className={`${controls} min-h-8 min-w-8`} onClick={() => pan(0, -1)} aria-label="Move view south">↓</button>
+            <button type="button" className={`${controls} min-h-8 min-w-8`} onClick={() => pan(1, 0)} aria-label="Move view east">→</button>
+            {selected && <button type="button" aria-label="Zoom to Selected House" className={`${controls} min-h-8 min-w-8`} onClick={() => {
               const middle = buildingCenter(selected);
               const size = Math.max(lengthFeet(selected.ring, true) * 0.3048 / 2, 60);
               setCenter(middle); setWidth(Math.min(480, size));
-            }}>Zoom to Selected House</button>}
+            }}>⌖</button>}
           </div>
-          <p className="text-sm text-gold">Tap the box around your house to estimate its full perimeter. The selected house is highlighted.</p>
-          {viewingPoint && <div className="flex flex-wrap gap-2">
-            <a href={googleMapsViewUrl(viewingPoint, "street")} target="_blank" rel="noopener noreferrer" className={controls}>Open Street View ↗</a>
-            <a href={googleMapsViewUrl(viewingPoint, "satellite")} target="_blank" rel="noopener noreferrer" className={controls}>Open Google Satellite View ↗</a>
-          </div>}
-          <p className="text-xs leading-relaxed text-mist">These views open in a new tab to help you identify your house. Street View is available where Google has coverage. Return here and select the matching outline for your estimate.</p>
+          <div className="flex items-center justify-between gap-2 text-xs">
+            <p className="text-gold">Tap your house outline.</p>
+            {viewingPoint && <div className="flex shrink-0 gap-3">
+              <a href={googleMapsViewUrl(viewingPoint, "street")} target="_blank" rel="noopener noreferrer" className="text-mist underline hover:text-gold" aria-label="Open Street View in a new tab">Street View ↗</a>
+              <a href={googleMapsViewUrl(viewingPoint, "satellite")} target="_blank" rel="noopener noreferrer" className="text-mist underline hover:text-gold" aria-label="Open Google Satellite View in a new tab">Satellite ↗</a>
+            </div>}
+          </div>
           {loadedImage !== aerial && failedImage !== aerial && <p role="status" className="text-sm text-mist">Loading aerial image…</p>}
-          <svg viewBox="0 0 800 800" className="block aspect-square w-full overflow-hidden rounded-xl border border-white/20 bg-night" aria-label="Aerial view with selectable building outlines">
+          <svg viewBox="0 0 800 800" className="mx-auto block aspect-square w-full max-w-[300px] overflow-hidden rounded-xl border border-white/20 bg-night" aria-label="Aerial view with selectable building outlines">
             <title>Aerial view: select the outline around your house</title>
-            <image href={aerial} x="0" y="0" width="800" height="800" onLoad={() => setLoadedImage(aerial)} onError={() => setFailedImage(aerial)} />
+            <image href={aerial} x="0" y="0" width="800" height="800" onLoad={() => { setLoadedImage(aerial); setFailedImage(""); }} onError={() => setFailedImage(aerial)} />
             {loadedImage === aerial && failedImage !== aerial && buildings.map((b, i) => (
               <polygon key={b.id} points={b.ring.map((p) => pixel(p).join(",")).join(" ")} fill={selected?.id === b.id ? "#f4c56a66" : "#00000015"} stroke={selected?.id === b.id ? "#ffffff" : "#f4c56a"} strokeWidth={selected?.id === b.id ? "5" : "3"} tabIndex={0} role="button" aria-pressed={selected?.id === b.id} aria-label={`Select building ${i + 1}, approximately ${Math.round(lengthFeet(b.ring, true))} feet around`} onClick={() => selectHouse(b)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectHouse(b); } }} className="cursor-pointer outline-none focus:stroke-white focus:stroke-[6]" />
             ))}
@@ -137,9 +139,8 @@ export default function RooflineEstimator({ address, city, onUse }: {
           {failedImage === aerial && <p role="alert" className="text-sm text-gold">The aerial image could not load. Do not use an outline you cannot verify. Try again later or enter a length manually.</p>}
           {buildingError && <p className="text-sm text-mist">{buildingError}</p>}
           {buildingData?.key === boundsKey && !buildings.length && <p className="text-sm text-mist">No building outlines here. Move the view to find your house or let our team measure it for your quote.</p>}
-          <p aria-live="polite" className="font-semibold text-gold">{measuredFeet > 0 ? `Estimated full house perimeter: ${Math.round(measuredFeet)} feet — applied to your estimate below.` : "Select the outline around your house to see its estimated perimeter."}</p>
-          <p className="text-xs leading-relaxed text-mist">This estimate covers the full building perimeter. Roof overhangs, slopes, and the edges you choose to light may change the final length. Imagery and outlines may be older; confirm the correct house before selecting it. Our team verifies measurements and pricing.</p>
-          <p className="text-xs text-mist">Imagery: USDA, USGS The National Map. Outlines: <a href="/roof-data/attribution.txt" target="_blank" rel="noopener noreferrer" className="underline">Overture Maps &amp; contributors (ODbL)</a>.</p>
+          <p aria-live="polite" className="text-xs font-semibold text-gold">{measuredFeet > 0 ? `Selected house: ${Math.round(measuredFeet)} ft` : "Choose the outline around your house."}</p>
+          <p className="text-xs text-mist">USDA / USGS · Outlines: <a href="/roof-data/attribution.txt" target="_blank" rel="noopener noreferrer" className="underline">Overture Maps &amp; contributors (ODbL)</a>.</p>
         </div>
       )}
     </div>

@@ -47,6 +47,40 @@ export default function ContactForm({ email }: { email: string }) {
 
   return (
     <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2">
+      <label>
+        <span className="mb-1.5 block text-sm font-semibold text-mist">City</span>
+        <select name="city" required autoComplete="address-level2" className={field} value={city} onChange={(e) => { setCity(e.target.value); if (measurementSource !== "Manually entered / not measured") { setFeet(""); setMeasurementSource("Manually entered / not measured"); } }}>
+          <option value="" disabled className="bg-night">Select your city</option>
+          {site.serviceArea.map((city) => <option key={city} className="bg-night">{city}</option>)}
+        </select>
+      </label>
+      <label>
+        <span className="mb-1.5 block text-sm font-semibold text-mist">Property street address</span>
+        <input name="address" required autoComplete="street-address" className={field} placeholder="Street number and street name" value={address} onChange={(e) => { setAddress(e.target.value); if (measurementSource !== "Manually entered / not measured") { setFeet(""); setMeasurementSource("Manually entered / not measured"); } }} />
+      </label>
+      <fieldset className="grid grid-cols-2 gap-2 rounded-2xl border border-gold/20 bg-gold/5 p-3 sm:col-span-2">
+        <legend className="px-2 text-sm font-semibold text-gold">Estimate your lights (optional)</legend>
+        <RooflineEstimator address={address} city={city} onUse={(length, source) => { setFeet(String(length)); setMeasurementSource(source); }} />
+        <label>
+          <span className="mb-1.5 block text-sm font-semibold text-mist">Perimeter (feet)</span>
+          <input name="feet" type="number" min="0" step="0.1" inputMode="decimal" value={feet} onChange={(e) => { setFeet(e.target.value); setMeasurementSource("Manually entered / not measured"); }} className={`${field} !px-3 !py-2`} placeholder="e.g. 150" />
+        </label>
+        <label>
+          <span className="mb-1.5 block text-sm font-semibold text-mist">Average trees</span>
+          <input name="trees" type="number" min="0" step="1" inputMode="numeric" value={trees} onChange={(e) => setTrees(e.target.value)} className={`${field} !px-3 !py-2`} placeholder="e.g. 3" />
+        </label>
+        <div className="col-span-2 rounded-lg bg-night/60 px-3 py-2">
+          <p aria-live="polite" aria-atomic="true" className="font-semibold text-gold">
+            {estimate.max > 0 ? `Estimated total: ${formatUsd(estimate.min)}–${formatUsd(estimate.max)}` : "Select your house or enter feet and trees."}
+          </p>
+          <p className="mt-1 text-xs text-mist">$8–$15/ft + about $100/tree. Final quote confirmed by our team.</p>
+        </div>
+        <details className="text-xs leading-relaxed text-mist col-span-2">
+          <summary className="cursor-pointer font-semibold text-snow">How is the house perimeter estimated?</summary>
+          <p className="mt-3">Select the outline around your house in the aerial view. Its full exterior perimeter is applied to the price estimate automatically. Street View and Google&apos;s satellite view can help you identify the correct house.</p>
+          <p className="mt-2">This is the full building perimeter; roof slopes, overhangs, access, tree size, and front-only lighting can change the final quote. An average tree uses four strands. You can leave the length blank and let us measure it.</p>
+        </details>
+      </fieldset>
       <label className="sm:col-span-1">
         <span className="mb-1.5 block text-sm font-semibold text-mist">Name</span>
         <input name="name" required autoComplete="name" className={field} placeholder="Your name" />
@@ -59,18 +93,6 @@ export default function ContactForm({ email }: { email: string }) {
         <span className="mb-1.5 block text-sm font-semibold text-mist">Email</span>
         <input name="email" type="email" required autoComplete="email" className={field} placeholder="you@email.com" />
       </label>
-      <label>
-        <span className="mb-1.5 block text-sm font-semibold text-mist">City</span>
-        <select name="city" required autoComplete="address-level2" className={field} value={city} onChange={(e) => { setCity(e.target.value); if (measurementSource !== "Manually entered / not measured") { setFeet(""); setMeasurementSource("Manually entered / not measured"); } }}>
-          <option value="" disabled className="bg-night">Select your city</option>
-          {site.serviceArea.map((city) => <option key={city} className="bg-night">{city}</option>)}
-        </select>
-      </label>
-      <label className="sm:col-span-2">
-        <span className="mb-1.5 block text-sm font-semibold text-mist">Property street address</span>
-        <input name="address" required autoComplete="street-address" className={field} placeholder="Street number and street name" aria-describedby="address-help" value={address} onChange={(e) => { setAddress(e.target.value); if (measurementSource !== "Manually entered / not measured") { setFeet(""); setMeasurementSource("Manually entered / not measured"); } }} />
-        <span id="address-help" className="mt-2 block text-sm text-mist">We use your address to review the roofline for your free quote. No measuring needed on your end.</span>
-      </label>
       <label className="sm:col-span-2">
         <span className="mb-1.5 block text-sm font-semibold text-mist">What are you dreaming of?</span>
         <select name="size" className={field} defaultValue="Classic home display">
@@ -81,29 +103,6 @@ export default function ContactForm({ email }: { email: string }) {
           <option className="bg-night">Not sure yet, help me decide</option>
         </select>
       </label>
-      <fieldset className="grid gap-4 rounded-2xl border border-gold/20 bg-gold/5 p-4 sm:col-span-2 sm:grid-cols-2">
-        <legend className="px-2 text-sm font-semibold text-gold">Optional: estimate your roofline &amp; trees</legend>
-        <RooflineEstimator address={address} city={city} onUse={(length, source) => { setFeet(String(length)); setMeasurementSource(source); }} />
-        <label>
-          <span className="mb-1.5 block text-sm font-semibold text-mist">Roofline length (feet)</span>
-          <input name="feet" type="number" min="0" step="0.1" inputMode="decimal" value={feet} onChange={(e) => { setFeet(e.target.value); setMeasurementSource("Manually entered / not measured"); }} className={field} placeholder="e.g. 150" />
-        </label>
-        <label>
-          <span className="mb-1.5 block text-sm font-semibold text-mist">Number of average trees</span>
-          <input name="trees" type="number" min="0" step="1" inputMode="numeric" value={trees} onChange={(e) => setTrees(e.target.value)} className={field} placeholder="e.g. 3" />
-        </label>
-        <div className="sm:col-span-2">
-          <p aria-live="polite" aria-atomic="true" className="font-semibold text-gold">
-            {estimate.max > 0 ? `Approximate roofline & tree total: ${formatUsd(estimate.min)}–${formatUsd(estimate.max)}` : "Enter a length or tree count for a rough price range."}
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-mist">Based on $8–$15 per foot and about $100 per average tree (four strands). Covers the items entered. Final quote depends on roof height, access, tree size, and other decorations.</p>
-        </div>
-        <details className="text-sm leading-relaxed text-mist sm:col-span-2">
-          <summary className="cursor-pointer font-semibold text-snow">How is the house perimeter estimated?</summary>
-          <p className="mt-3">Select the outline around your house in the aerial view. Its full exterior perimeter is applied to the price estimate automatically. Street View and Google&apos;s satellite view can help you identify the correct house.</p>
-          <p className="mt-2">For front-only lighting, hidden edges, roof overhangs, or sloped gables, tell us what you want lit and our team will confirm the actual lighting length. You can leave the length blank and let us handle it.</p>
-        </details>
-      </fieldset>
       <label className="sm:col-span-2">
         <span className="mb-1.5 block text-sm font-semibold text-mist">Tell us about your vision</span>
         <textarea
