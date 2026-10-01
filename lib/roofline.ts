@@ -43,3 +43,15 @@ export function imageryUrl(bounds: readonly number[]) {
 export function tileKey(point: Point) {
   return `${Math.floor(point[0] * 100)}_${Math.floor(point[1] * 100)}`;
 }
+
+export function buildingCenter(building: Building): Point {
+  const xs = building.ring.map((p) => p[0]), ys = building.ring.map((p) => p[1]);
+  return [(Math.min(...xs) + Math.max(...xs)) / 2, (Math.min(...ys) + Math.max(...ys)) / 2];
+}
+
+export function googleMapsViewUrl([lon, lat]: Point, view: "street" | "satellite") {
+  const query = new URLSearchParams({ api: "1", map_action: view === "street" ? "pano" : "map" });
+  if (view === "street") query.set("viewpoint", `${lat},${lon}`);
+  else { query.set("center", `${lat},${lon}`); query.set("zoom", "20"); query.set("basemap", "satellite"); }
+  return `https://www.google.com/maps/@?${query}`;
+}

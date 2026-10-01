@@ -10,15 +10,17 @@ limits. There is no per-lookup fee from these mapping services.
    **Find My House**. Only the address and city go to Census; the route does not
    store them. Census coordinates can sit on the street, so the visitor must
    visually confirm the correct building on the aerial image.
-2. Select the building outline for its approximate full exterior perimeter, or
-   choose **Trace Roof Edges** for front-only lights or other selected edges.
-   Tap consecutive corners. Use **Close Full Perimeter** only for a complete loop;
-   use **Add Another Roofline** for separate paths without a connecting segment.
-   Zoom and move the view as needed. Do not count shared edges twice.
-3. Choose **Use This Length in My Estimate** to apply rounded linear feet to the
-   calculator. Editing the address clears any applied map measurement. Manual
-   entry is available if an address, image, or building outline is unavailable.
-   The email request records the measurement source for the team to review.
+2. Tap the outline around the house for its approximate full exterior perimeter.
+   Selection automatically applies rounded linear feet to the calculator. No
+   drawing is needed. Zoom and move the view to find the right house.
+3. Optional **Open Street View** and **Open Google Satellite View** links show
+   clearer reference views in another tab, with no API key. Street View coverage
+   varies. These links use the selected building's center, or the address location
+   before selection. Return to the site to select the matching aerial outline;
+   measurements always come from the local building geometry. Editing the address
+   clears an applied measurement. Manual entry and team measurement remain
+   available when an address, image, or outline is unavailable. The quote request
+   records the selected building ID and measurement source for team review.
 4. Verify sloped gables, roof height, access, hidden edges, and imagery age before
    issuing a final quote. A horizontal building footprint is a rough starting
    point, not the exact roofline: eaves, gables, and multiple roof levels differ.
@@ -33,9 +35,10 @@ limits. There is no per-lookup fee from these mapping services.
    are quoted individually. The form prepares an email in the visitor's mail app;
    the visitor still needs to send it.
 
-## Manual fallback
+## Team measurement fallback
 
-The team can also search the address in https://earth.google.com/web/, select
+Customers are not asked to draw or trace their house. For final verification,
+the team can also search the address in https://earth.google.com/web/, select
 Measure, trace each desired roofline, choose feet, and enter the total manually.
 Google Earth web measurements do not account for elevation changes. For a known
 horizontal run and vertical rise, sloped length is sqrt(run² + rise²).
@@ -65,3 +68,6 @@ Sources: [Census API](https://geocoding.geo.census.gov/geocoder/Geocoding_Servic
 [USGS imagery](https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer),
 [Overture CLI](https://docs.overturemaps.org/getting-data/overturemaps-py/),
 [Overture attribution](https://docs.overturemaps.org/attribution/#buildings).
+
+[Google Maps URLs](https://developers.google.com/maps/documentation/urls/get-started)
+provide the Street View and satellite reference links without an API key.

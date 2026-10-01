@@ -99,9 +99,9 @@ export default function ContactForm({ email }: { email: string }) {
           <p className="mt-2 text-sm leading-relaxed text-mist">Based on $8–$15 per foot and about $100 per average tree (four strands). Covers the items entered. Final quote depends on roof height, access, tree size, and other decorations.</p>
         </div>
         <details className="text-sm leading-relaxed text-mist sm:col-span-2">
-          <summary className="cursor-pointer font-semibold text-snow">Want to measure your roofline?</summary>
-          <p className="mt-3">Open <a href="https://earth.google.com/web/" target="_blank" rel="noopener noreferrer" className="text-gold underline">Google Earth (new tab)</a>, search your address, and use Measure in a top-down view. Trace only the roof edges you want lit, add their lengths, and select feet. For the entire perimeter, include every exterior edge.</p>
-          <p className="mt-2">Satellite measurements are approximate and do not account for roof pitch. We confirm the lighting length before your final quote. You can also leave the length blank and let us handle it.</p>
+          <summary className="cursor-pointer font-semibold text-snow">How is the house perimeter estimated?</summary>
+          <p className="mt-3">Select the outline around your house in the aerial view. Its full exterior perimeter is applied to the price estimate automatically. Street View and Google&apos;s satellite view can help you identify the correct house.</p>
+          <p className="mt-2">For front-only lighting, hidden edges, roof overhangs, or sloped gables, tell us what you want lit and our team will confirm the actual lighting length. You can leave the length blank and let us handle it.</p>
         </details>
       </fieldset>
       <label className="sm:col-span-2">

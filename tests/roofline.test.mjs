@@ -79,3 +79,19 @@ test('address lookup handles no match, outside coverage, and upstream failure', 
     assert.deepEqual((await response.json()).point, [-118.109366, 33.741591]);
   } finally { global.fetch = original; }
 });
+
+
+test('reference views use selected building coordinates in latitude-longitude order', () => {
+  const building = { id: 'house', ring: [[-118.11, 33.74], [-118.109, 33.74], [-118.109, 33.741], [-118.11, 33.741]] };
+  const center = geo.buildingCenter(building);
+  assert.ok(Math.abs(center[0] + 118.1095) < 1e-9);
+  assert.ok(Math.abs(center[1] - 33.7405) < 1e-9);
+  const street = new URL(geo.googleMapsViewUrl(center, 'street'));
+  const satellite = new URL(geo.googleMapsViewUrl(center, 'satellite'));
+  assert.equal(street.searchParams.get('api'), '1');
+  assert.equal(street.searchParams.get('map_action'), 'pano');
+  assert.equal(street.searchParams.get('viewpoint'), `${center[1]},${center[0]}`);
+  assert.equal(satellite.searchParams.get('center'), `${center[1]},${center[0]}`);
+  assert.equal(satellite.searchParams.get('basemap'), 'satellite');
+  assert.equal(street.searchParams.has('key'), false);
+});
