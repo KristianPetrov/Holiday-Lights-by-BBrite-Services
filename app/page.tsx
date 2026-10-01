@@ -527,7 +527,7 @@ export default function Home() {
               </div>
             </Reveal>
             <Reveal delay={80} className="rounded-3xl border border-white/10 bg-night/70 p-6 backdrop-blur-xl sm:p-10">
-              <ContactForm email={site.email} />
+              <ContactForm email={site.email} autoMeasure={Boolean(process.env.GOOGLE_MAPS_API_KEY)} />
             </Reveal>
           </div>
         </section>

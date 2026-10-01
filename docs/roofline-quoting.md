@@ -25,10 +25,12 @@
    Display ranges on the website are $1,000–$3,000 and $4,000–$9,000; custom projects
    are quoted individually.
 
-The website does not automatically measure a roof or import measurements from
-Google Earth. The address supports this manual workflow, while the optional
-calculator accepts measurements entered by the customer. No mapping API key is
-needed. Final pricing is subject to confirmed measurements and installation access.
+When `GOOGLE_MAPS_API_KEY` is set, the quote form shows a "Measure my roof from
+my address" button. It looks up Google's building outline for the address and
+fills in the outline's perimeter. That is the full roof edge seen from above: it
+does not add the extra length of sloped gables and can include sections the
+customer does not want lit, so still confirm it with step 2. Without the key the
+button is hidden and customers measure themselves or leave the length blank. Final pricing is subject to confirmed measurements and installation access.
 
 Google's measurement instructions:
 https://support.google.com/earth/answer/9010337?co=GENIE.Platform%3DDesktop&hl=en

@@ -24,6 +24,15 @@ The estimate uses $8–$15 per linear foot and about $100 per average tree (four
 strands). It is an estimate for the entered items, not a confirmed booking or quote.
 See [the roofline quoting workflow](docs/roofline-quoting.md).
 
+### Automatic roof measurement (optional)
+
+Set `GOOGLE_MAPS_API_KEY` in Vercel (Project Settings, Environment Variables) and
+redeploy to show a "Measure my roof from my address" button on the quote form. The
+key needs the **Geocoding API** enabled in Google Cloud. The site calls Google's
+Geocoding v4 Search Destinations endpoint from the server (`app/api/roof-estimate`),
+takes the building outline at the address, and fills in its perimeter in feet.
+Restrict the key to the Geocoding API and set a daily quota cap in Google Cloud.
+
 ## Photos and logo
 
 The site finds images in `public/` automatically at build time:
