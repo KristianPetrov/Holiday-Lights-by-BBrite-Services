@@ -5,11 +5,11 @@ export const site = {
   shortName: "Holiday Lights OC",
   domain: "holidaylightsoc.com",
   url: "https://holidaylightsoc.com",
-  region: "Orange County, CA",
+  region: "coastal Orange County, Long Beach, and Cerritos",
   yearsInBusiness: 20,
-  tagline: "Custom Christmas light installation and takedown in Orange County.",
+  tagline: "Seasonal Christmas light rentals, installation, and year-end removal.",
   description:
-    "Holiday Lights by BBrite Services designs, installs, and takes down custom Christmas light displays across Orange County. 20 years of bringing the Christmas spirit home.",
+    "Holiday Lights by BBrite Services provides seasonal Christmas light rentals, custom design, installation, and year-end removal in Newport Beach, Long Beach, Sunset Beach, Seal Beach, Huntington Beach, Corona del Mar, and Cerritos. 20 years of bringing the Christmas spirit home.",
 
   phoneDisplay: "(714) 876-7622",
   phoneHref: "tel:+17148767622",
@@ -17,26 +17,20 @@ export const site = {
 
   pricing: {
     typical: { min: 1000, max: 3000 },
-    showstopper: { min: 7000, max: 15000 },
+    showstopper: { min: 4000, max: 9000 },
+    roofline: { min: 8, max: 15 },
+    tree: 100,
+    strandsPerTree: 4,
   },
 
   serviceArea: [
-    "Irvine",
     "Newport Beach",
+    "Long Beach",
+    "Sunset Beach",
+    "Seal Beach",
     "Huntington Beach",
-    "Costa Mesa",
-    "Laguna Beach",
-    "Mission Viejo",
-    "Anaheim",
-    "Orange",
-    "Tustin",
-    "Yorba Linda",
-    "Dana Point",
-    "San Clemente",
-    "Fullerton",
-    "Lake Forest",
-    "Laguna Niguel",
-    "Rancho Santa Margarita",
+    "Corona del Mar",
+    "Cerritos",
   ],
 } as const;
 

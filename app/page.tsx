@@ -37,40 +37,44 @@ const services = [
     icon: <path d="M4 20h16M7 20V9l5-5 5 5v11M10 20v-5h4v5" strokeLinejoin="round" strokeLinecap="round" />,
   },
   {
-    title: "Takedown After Christmas",
-    body: "When the season wraps up, we come back and take it all down. No tangled cords, no ladders, no January chores. You just enjoy the holidays.",
+    title: "Year-End Takedown & Collection",
+    body: "At the end of the year, we take down the display and collect our rented lights. No ladders, tangled cords, or lights to store. You just enjoy the holidays.",
     icon: <path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3M18 3v4h-4M6 21v-4h4" strokeLinecap="round" strokeLinejoin="round" />,
   },
 ];
 
 const steps = [
-  { title: "Free consultation", body: "Share your ideas and your home. We'll talk through what you love and what's possible." },
+  { title: "Free consultation", body: "Share your address and ideas. We review your roofline and plan the lights around your home." },
   { title: "Your custom design", body: "We map out the display and give you a clear, up-front quote." },
   { title: "Installation day", body: "Our crew arrives, and hangs everything with care and precision." },
   { title: "Flip the switch", body: "Your home glows all season. That's the moment we live for." },
-  { title: "Takedown", body: "After Christmas we remove it all, so the holidays end as easy as they began." },
+  { title: "Takedown", body: "At year-end, we take everything down and collect our rented lights. Nothing for you to store." },
 ];
 
 const faqs = [
   {
     q: "How much does professional Christmas light installation cost?",
-    a: `Most homes fall between ${typicalRange}, depending on the size of the home and how much you want lit. Large, extravagant displays typically run ${showRange}. Every quote is custom and free.`,
+    a: `Classic displays typically run ${typicalRange}; larger displays run ${showRange}. Roofline lighting is approximately $8–$15 per linear foot. An average tree uses four strands and costs approximately $100 per tree. Your seasonal rental includes installation, year-end takedown, and collection. Final pricing depends on the design, roof height, and access.`,
   },
   {
-    q: "Do you take the lights down after Christmas?",
-    a: "Yes. Takedown is part of what we do. After the holidays, our crew comes back and removes everything so you never have to touch a ladder.",
+    q: "Are the lights rented, and when are they removed?",
+    a: "Yes. The lights are a seasonal rental and remain ours. At the end of the year, our crew takes them down and takes them back. You do not need to buy or store the lights.",
   },
   {
     q: "Can you bring my own idea to life?",
     a: "Absolutely, that's our favorite part. Bring us a photo, a color scheme, or just a feeling, and we'll design a display around your vision.",
   },
   {
+    q: "Do I need to measure my roof before requesting a quote?",
+    a: "No. Share your property address and tell us which roof edges and trees you want lit. We can review the roofline using satellite imagery, then confirm the length, height, and access for your final quote. If you already know the length, use the optional estimator in the quote form.",
+  },
+  {
     q: "What areas do you serve?",
-    a: `We install throughout Orange County, including ${site.serviceArea.slice(0, 8).join(", ")}, and surrounding cities.`,
+    a: `We serve ${site.serviceArea.join(", ")}.`,
   },
   {
     q: "When should I book?",
-    a: "As early as you can. The schedule fills up as December gets closer, and booking early gives you the best choice of install dates.",
+    a: "Book now before we sell out near the end of November. Request your free quote early for the best choice of installation dates.",
   },
 ];
 
@@ -124,13 +128,10 @@ export default function Home() {
     telephone: "+1-714-876-7622",
     email: site.email,
     priceRange: `${formatUsd(pricing.typical.min)}-${formatUsd(pricing.showstopper.max)}`,
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: "Orange County, California",
-    },
+    areaServed: site.serviceArea.map((name) => ({ "@type": "City", name })),
     address: { "@type": "PostalAddress", addressRegion: "CA", addressCountry: "US" },
     makesOffer: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Christmas light design and installation" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Seasonal Christmas light rental, design, and installation" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Christmas light takedown and removal" } },
     ],
   };
@@ -176,15 +177,18 @@ export default function Home() {
                 />
               )}
               <p className="eyebrow flex items-center justify-center gap-3">
-                <span className="hidden h-px w-10 bg-gold sm:block" /> Orange County · {site.yearsInBusiness} Years of
+                <span className="hidden h-px w-10 bg-gold sm:block" /> Coastal Communities · {site.yearsInBusiness} Years of
                 Holiday Magic <span className="hidden h-px w-10 bg-gold sm:block" />
               </p>
               <h1 className="mt-6 text-balance font-display text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
                 We bring the <span className="text-gold-gradient text-glow italic">Christmas spirit</span> home.
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-snow/85 sm:text-xl">
-                Custom Christmas light design, professional installation, and takedown after the holidays.
+                Seasonal Christmas light rentals, custom design, professional installation, and year-end takedown.
                 You dream it. We light it.
+              </p>
+              <p className="mt-5 max-w-lg text-sm font-semibold text-gold">
+                Book now before we sell out near the end of November.
               </p>
               <div className="mt-10 flex flex-wrap justify-center gap-4">
                 <a href="#contact" className="btn-primary">
@@ -205,10 +209,10 @@ export default function Home() {
         <section className="relative border-y border-white/10 bg-night-2">
           <dl className="mx-auto grid max-w-7xl grid-cols-2 divide-white/10 px-5 sm:px-8 md:grid-cols-4 md:divide-x">
             {[
-              { k: `${site.yearsInBusiness}`, v: "Years lighting up OC" },
+              { k: `${site.yearsInBusiness}`, v: "Years of holiday magic" },
               { k: "100%", v: "Custom designs" },
               { k: "Full", v: "Install & takedown" },
-              { k: "Local", v: "Orange County crew" },
+              { k: "Local", v: "Experienced local crew" },
             ].map((s) => (
               <div key={s.v} className="px-4 py-8 text-center md:py-10">
                 <dt className="font-display text-4xl font-semibold text-gold-gradient sm:text-5xl">{s.k}</dt>
@@ -257,8 +261,8 @@ export default function Home() {
                   has done this for {site.yearsInBusiness} years.
                 </p>
                 <p>
-                  And when the season ends, we come back and take it all down. You get the magic without the
-                  ladders, the tangles, or the January cleanup.
+                  The lights are rented for the season. At the end of the year, we take them down and take them
+                  back. You get the magic without the ladders, the tangles, or anything to store.
                 </p>
               </div>
               <p className="mt-8 font-display text-2xl italic text-gold">
@@ -273,7 +277,7 @@ export default function Home() {
           <StringLights className="absolute inset-x-0 top-0 h-14" swags={9} bulbsPerSwag={4} />
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <SectionHeading eyebrow="What We Do" title={<>Everything, start to finish.</>}>
-              From the first sketch to the last clip coming down in January, we handle the whole season so
+              From the first sketch to year-end takedown and collection, we handle the whole season so
               you can simply enjoy it.
             </SectionHeading>
             <ul className="mt-16 grid gap-6 md:grid-cols-3">
@@ -326,14 +330,14 @@ export default function Home() {
             <Reveal>
               <p className="eyebrow">Behind the Glow</p>
               <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                A crew that sweats the details.
+                Beautiful lights. Expert installation.
               </h2>
               <p className="mt-6 text-lg leading-relaxed text-mist">
                 Straight lines, even spacing, clean connections, and no loose wires. Our installers treat
                 your home like their own, because a great display is built one clip at a time.
               </p>
               <ul className="mb-10 mt-8 space-y-3 text-snow/90">
-                {["Experienced, careful installers", "Clean wraps on trees and landscaping", "Straight, even rooflines", "Full takedown after the season"].map((t) => (
+                {["Experienced, careful installers", "Clean wraps on trees and landscaping", "Straight, even rooflines", "Year-end takedown and collection"].map((t) => (
                   <li key={t} className="flex items-center gap-3">
                     <span className="h-2.5 w-2.5 rounded-full bg-gold shadow-[0_0_12px_var(--gold)]" />
                     {t}
@@ -380,9 +384,21 @@ export default function Home() {
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
             <SectionHeading eyebrow="Pricing" title="Honest pricing. Unforgettable results.">
               Every home is different, so every quote is custom and free. Here&apos;s what most of our
-              customers invest, plus custom projects quoted on their own.
+              customers spend on a seasonal rental, including installation, year-end takedown, and collection.
             </SectionHeading>
-            <div className="mx-auto mt-16 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-gold/20 bg-gold/5 p-6 text-center">
+                <p className="eyebrow">Roofline Lighting</p>
+                <p className="mt-3 font-display text-3xl text-gold">$8–$15 per linear foot</p>
+                <p className="mt-2 text-sm text-mist">Priced by the length of roofline you want illuminated.</p>
+              </div>
+              <div className="rounded-2xl border border-gold/20 bg-gold/5 p-6 text-center">
+                <p className="eyebrow">Tree Lighting</p>
+                <p className="mt-3 font-display text-3xl text-gold">About $100 per tree</p>
+                <p className="mt-2 text-sm text-mist">An average tree uses four strands. Larger trees are quoted individually.</p>
+              </div>
+            </div>
+            <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3">
               <Reveal className="glow-card flex flex-col rounded-3xl p-8 sm:p-10 lg:p-8">
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-mist">Most Homes</p>
                 <p className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">
@@ -393,7 +409,7 @@ export default function Home() {
                   around your style and your budget.
                 </p>
                 <ul className="mb-10 mt-8 space-y-3 text-snow/90">
-                  {["Custom design consultation", "Rooflines, trees, and landscaping", "Professional installation", "Post-Christmas takedown"].map((t) => (
+                  {["Custom design consultation", "Rooflines, trees, and landscaping", "Professional installation", "Year-end takedown and collection"].map((t) => (
                     <li key={t} className="flex items-start gap-3">
                       <Check /> {t}
                     </li>
@@ -416,7 +432,7 @@ export default function Home() {
                   displays designed to stop traffic.
                 </p>
                 <ul className="mb-10 mt-8 space-y-3 text-snow/90">
-                  {["Everything in a classic display", "Large-scale, whole-property design", "Trees, yards, and architectural features", "Post-Christmas takedown"].map((t) => (
+                  {["Everything in a classic display", "Large-scale, whole-property design", "Trees, yards, and architectural features", "Year-end takedown and collection"].map((t) => (
                     <li key={t} className="flex items-start gap-3">
                       <Check /> {t}
                     </li>
@@ -485,8 +501,9 @@ export default function Home() {
               </h2>
               <p className="mt-6 text-lg leading-relaxed text-mist">
                 Tell us about your home and your vision. We&apos;ll get back to you with a free, no-pressure
-                quote.
+                quote. Share your address so we can review the roofline and estimate the length of lights.
               </p>
+              <p className="mt-4 font-semibold text-gold">Book before our schedule fills near the end of November.</p>
               <div className="mt-10 space-y-4">
                 <a href={site.phoneHref} className="flex items-center gap-4 text-xl font-semibold hover:text-gold">
                   <IconCircle>
@@ -505,7 +522,7 @@ export default function Home() {
                     <path d="M12 21s-7-6.2-7-12a7 7 0 0114 0c0 5.8-7 12-7 12z" strokeLinejoin="round" />
                     <circle cx="12" cy="9" r="2.5" />
                   </IconCircle>
-                  Serving all of {site.region}
+                  Serving {site.region}
                 </p>
               </div>
             </Reveal>
@@ -557,7 +574,13 @@ export default function Home() {
           </div>
         </div>
         <div className="border-t border-white/5 py-6 text-center text-xs text-mist/70">
-          © {new Date().getFullYear()} {site.name} · {site.domain}
+          <p>© {new Date().getFullYear()} {site.name} · {site.domain}</p>
+          <p className="mt-2">
+            Website designed by {" "}
+            <a href="https://setfreedigitaldisciples.com" className="text-gold hover:underline">
+              Set Free Digital Disciples
+            </a>
+          </p>
         </div>
       </footer>
     </>

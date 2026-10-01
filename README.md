@@ -1,7 +1,8 @@
 # Holiday Lights by BBrite Services
 
 Marketing site for [holidaylightsoc.com](https://holidaylightsoc.com): custom Christmas light
-design, installation, and post-Christmas takedown in Orange County.
+rentals, design, installation, and year-end takedown and collection in coastal
+Orange County, Long Beach, and Cerritos.
 
 Built with Next.js (App Router) and Tailwind CSS. The whole site is prerendered as static HTML.
 
@@ -17,11 +18,18 @@ pnpm build    # production build
 
 Phone, email, pricing, and service-area cities live in `lib/site.ts`.
 
+The quote form collects the property address and optional roofline length/tree
+count. It prepares an email in the visitor's email app; the visitor must send it.
+The estimate uses $8–$15 per linear foot and about $100 per average tree (four
+strands). It is an estimate for the entered items, not a confirmed booking or quote.
+See [the roofline quoting workflow](docs/roofline-quoting.md).
+
 ## Photos and logo
 
 The site finds images in `public/` automatically at build time:
 
-- `logo.png` (or any image with "logo" in its name) is used in the header and footer.
+- `brand/holiday-lights-extravagant-logo-transparent.png` is the preferred logo
+  throughout the site. Other logo files are fallbacks and are excluded from galleries.
 - Images in a folder whose name mentions crew, install, workers, team, or progress
   (for example `crew/` or `Installing/`) appear in the "Behind the Glow" crew section.
 - Images in any other folder (for example `houses/`) appear in the "Our Work" gallery.

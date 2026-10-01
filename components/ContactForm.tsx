@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { formatUsd, site } from "@/lib/site";
+import { estimateLighting } from "@/lib/pricing";
 
 /**
  * Quote request form. The site is static, so submitting opens the visitor's
@@ -9,6 +11,9 @@ import { useState } from "react";
  */
 export default function ContactForm({ email }: { email: string }) {
   const [sent, setSent] = useState(false);
+  const [feet, setFeet] = useState("");
+  const [trees, setTrees] = useState("");
+  const estimate = estimateLighting(Number(feet), Number(trees));
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,12 +24,16 @@ export default function ContactForm({ email }: { email: string }) {
       `Name: ${get("name")}`,
       `Phone: ${get("phone")}`,
       `Email: ${get("email")}`,
+      `Property address: ${get("address")}`,
       `City: ${get("city")}`,
       `Project size: ${get("size")}`,
+      `Approximate roofline feet: ${get("feet") || "Please measure for me"}`,
+      `Average trees: ${get("trees") || "Not specified"}`,
+      ...(estimate.max > 0 ? [`Preliminary roofline/tree estimate: ${formatUsd(estimate.min)}–${formatUsd(estimate.max)} (subject to confirmation)`] : []),
       "",
       get("message"),
     ].join("\n");
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.assign(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
     setSent(true);
   }
 
@@ -47,7 +56,15 @@ export default function ContactForm({ email }: { email: string }) {
       </label>
       <label>
         <span className="mb-1.5 block text-sm font-semibold text-mist">City</span>
-        <input name="city" autoComplete="address-level2" className={field} placeholder="Irvine, Newport Beach..." />
+        <select name="city" required autoComplete="address-level2" className={field} defaultValue="">
+          <option value="" disabled className="bg-night">Select your city</option>
+          {site.serviceArea.map((city) => <option key={city} className="bg-night">{city}</option>)}
+        </select>
+      </label>
+      <label className="sm:col-span-2">
+        <span className="mb-1.5 block text-sm font-semibold text-mist">Property street address</span>
+        <input name="address" required autoComplete="street-address" className={field} placeholder="Street number and street name" aria-describedby="address-help" />
+        <span id="address-help" className="mt-2 block text-sm text-mist">We use your address to review the roofline for your free quote. No measuring needed on your end.</span>
       </label>
       <label className="sm:col-span-2">
         <span className="mb-1.5 block text-sm font-semibold text-mist">What are you dreaming of?</span>
@@ -59,6 +76,28 @@ export default function ContactForm({ email }: { email: string }) {
           <option className="bg-night">Not sure yet, help me decide</option>
         </select>
       </label>
+      <fieldset className="grid gap-4 rounded-2xl border border-gold/20 bg-gold/5 p-4 sm:col-span-2 sm:grid-cols-2">
+        <legend className="px-2 text-sm font-semibold text-gold">Optional: estimate your roofline &amp; trees</legend>
+        <label>
+          <span className="mb-1.5 block text-sm font-semibold text-mist">Roofline length (feet)</span>
+          <input name="feet" type="number" min="0" step="0.1" inputMode="decimal" value={feet} onChange={(e) => setFeet(e.target.value)} className={field} placeholder="e.g. 150" />
+        </label>
+        <label>
+          <span className="mb-1.5 block text-sm font-semibold text-mist">Number of average trees</span>
+          <input name="trees" type="number" min="0" step="1" inputMode="numeric" value={trees} onChange={(e) => setTrees(e.target.value)} className={field} placeholder="e.g. 3" />
+        </label>
+        <div className="sm:col-span-2">
+          <p aria-live="polite" aria-atomic="true" className="font-semibold text-gold">
+            {estimate.max > 0 ? `Approximate roofline & tree total: ${formatUsd(estimate.min)}–${formatUsd(estimate.max)}` : "Enter a length or tree count for a rough price range."}
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-mist">Based on $8–$15 per foot and about $100 per average tree (four strands). Covers the items entered. Final quote depends on roof height, access, tree size, and other decorations.</p>
+        </div>
+        <details className="text-sm leading-relaxed text-mist sm:col-span-2">
+          <summary className="cursor-pointer font-semibold text-snow">Want to measure your roofline?</summary>
+          <p className="mt-3">Open <a href="https://earth.google.com/web/" target="_blank" rel="noopener noreferrer" className="text-gold underline">Google Earth (new tab)</a>, search your address, and use Measure in a top-down view. Trace only the roof edges you want lit, add their lengths, and select feet. For the entire perimeter, include every exterior edge.</p>
+          <p className="mt-2">Satellite measurements are approximate and do not account for roof pitch. We confirm the lighting length before your final quote. You can also leave the length blank and let us handle it.</p>
+        </details>
+      </fieldset>
       <label className="sm:col-span-2">
         <span className="mb-1.5 block text-sm font-semibold text-mist">Tell us about your vision</span>
         <textarea
@@ -70,7 +109,7 @@ export default function ContactForm({ email }: { email: string }) {
       </label>
       <div className="flex flex-col items-start gap-3 sm:col-span-2 sm:flex-row sm:items-center">
         <button type="submit" className="btn-primary">
-          Request My Free Quote
+          Prepare My Quote Request
         </button>
         {sent && (
           <p className="text-sm text-mist" role="status">
@@ -78,6 +117,7 @@ export default function ContactForm({ email }: { email: string }) {
           </p>
         )}
       </div>
+      <p className="text-xs leading-relaxed text-mist sm:col-span-2">This opens your email app with the request ready to send. Prefer to call? <a href={site.phoneHref} className="text-gold underline">{site.phoneDisplay}</a>.</p>
     </form>
   );
 }
