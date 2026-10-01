@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { buildingCenter, googleMapsViewUrl, imageryUrl, lengthFeet, mapBounds, project, unproject, type Building, type Point, type RoofLocation } from "@/lib/roofline";
 
+const spinner = <span aria-hidden="true" className="inline-block h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-current border-r-transparent motion-reduce:animate-none" />;
+
 type TileIndex = { tiles: string[] };
 let indexRequest: Promise<TileIndex> | undefined;
 const tileRequests = new Map<string, Promise<Building[]>>();
@@ -55,6 +57,7 @@ export default function RooflineEstimator({ address, city, onUse }: {
   const boundsKey = bounds.join(",");
   const aerial = imageryUrl(bounds);
   const buildings = buildingData?.key === boundsKey ? buildingData.buildings : [];
+  const mapLoading = visible && failedImage !== aerial && (loadedImage !== aerial || (buildingData?.key !== boundsKey && !buildingError));
 
   useEffect(() => {
     if (!visible) return;
@@ -98,11 +101,12 @@ export default function RooflineEstimator({ address, city, onUse }: {
 
   return (
     <div className="col-span-2 space-y-2">
-      <div className="flex items-center justify-between gap-2">
-        <p className="text-sm font-semibold text-snow">Select your house</p>
-        <button type="button" onClick={locate} disabled={busy} className={controls}>{busy ? "Finding…" : visible ? "Find Again" : "Find My House"}</button>
-      </div>
+      <button type="button" onClick={locate} disabled={busy} className="flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold to-gold-deep px-4 py-3 text-sm font-bold text-night shadow-[0_0_20px_rgba(244,197,106,0.2)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold disabled:cursor-wait disabled:opacity-80">
+        {busy ? spinner : <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="10" cy="10" r="6" /><path d="m15 15 5 5" /></svg>}
+        {busy ? "Finding Your House…" : visible ? "Find My House Again" : "Find My House"}
+      </button>
       {!visible && <p className="text-xs text-mist">Enter your address and city above, then find your house. Address lookup uses U.S. Census.</p>}
+      {busy && <div role="status" className="mx-auto flex aspect-square w-full max-w-[300px] flex-col items-center justify-center gap-3 rounded-xl border border-gold/20 bg-night text-gold">{spinner}<span className="text-sm font-semibold">Finding your house…</span></div>}
       {error && <p role="alert" className="text-sm text-gold">{error}</p>}
       {visible && location && (
         <div className="space-y-2">
@@ -127,7 +131,7 @@ export default function RooflineEstimator({ address, city, onUse }: {
               <a href={googleMapsViewUrl(viewingPoint, "satellite")} target="_blank" rel="noopener noreferrer" className="text-mist underline hover:text-gold" aria-label="Open Google Satellite View in a new tab">Satellite ↗</a>
             </div>}
           </div>
-          {loadedImage !== aerial && failedImage !== aerial && <p role="status" className="text-sm text-mist">Loading aerial image…</p>}
+          <div className="relative mx-auto w-full max-w-[300px]" aria-busy={mapLoading}>
           <svg viewBox="0 0 800 800" className="mx-auto block aspect-square w-full max-w-[300px] overflow-hidden rounded-xl border border-white/20 bg-night" aria-label="Aerial view with selectable building outlines">
             <title>Aerial view: select the outline around your house</title>
             <image href={aerial} x="0" y="0" width="800" height="800" onLoad={() => { setLoadedImage(aerial); setFailedImage(""); }} onError={() => setFailedImage(aerial)} />
@@ -136,6 +140,8 @@ export default function RooflineEstimator({ address, city, onUse }: {
             ))}
             <circle cx={pixel(location.point)[0]} cy={pixel(location.point)[1]} r="7" fill="#74d7ff" stroke="white" strokeWidth="2" pointerEvents="none" />
           </svg>
+          {mapLoading && <div role="status" className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl bg-night/90 text-gold">{spinner}<span className="text-sm font-semibold">{loadedImage !== aerial ? "Loading your house map…" : "Loading house outlines…"}</span></div>}
+          </div>
           {failedImage === aerial && <p role="alert" className="text-sm text-gold">The aerial image could not load. Do not use an outline you cannot verify. Try again later or enter a length manually.</p>}
           {buildingError && <p className="text-sm text-mist">{buildingError}</p>}
           {buildingData?.key === boundsKey && !buildings.length && <p className="text-sm text-mist">No building outlines here. Move the view to find your house or let our team measure it for your quote.</p>}
