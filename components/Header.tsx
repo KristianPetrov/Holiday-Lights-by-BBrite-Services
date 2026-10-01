@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const NAV = [
+  { href: "#pricing", label: "Pricing" },
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
   { href: "#work", label: "Our Work" },
-  { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
 ];
 

@@ -205,6 +205,96 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ---------------- Pricing ---------------- */}
+        <section id="pricing" className="relative overflow-hidden bg-night-2 py-24 sm:py-32">
+          <div className="absolute -right-32 top-10 h-96 w-96 rounded-full bg-berry/20 blur-[120px]" />
+          <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+            <SectionHeading eyebrow="Pricing" title="Honest pricing. Unforgettable results.">
+              Every home is different, so every quote is custom and free. Here&apos;s what most of our
+              customers spend on a seasonal rental, including installation, year-end takedown, and collection.
+            </SectionHeading>
+            <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-gold/20 bg-gold/5 p-6 text-center">
+                <p className="eyebrow">Roofline Lighting</p>
+                <p className="mt-3 font-display text-3xl text-gold">$8–$15 per linear foot</p>
+                <p className="mt-2 text-sm text-mist">Priced by the length of roofline you want illuminated.</p>
+              </div>
+              <div className="rounded-2xl border border-gold/20 bg-gold/5 p-6 text-center">
+                <p className="eyebrow">Tree Lighting</p>
+                <p className="mt-3 font-display text-3xl text-gold">About $100 per tree</p>
+                <p className="mt-2 text-sm text-mist">An average tree uses four strands. Larger trees are quoted individually.</p>
+              </div>
+            </div>
+            <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <Reveal className="glow-card flex flex-col rounded-3xl p-8 sm:p-10 lg:p-8">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-mist">Most Homes</p>
+                <p className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">
+                  <PriceRange {...pricing.typical} />
+                </p>
+                <p className="mt-4 leading-relaxed text-mist">
+                  Beautiful, professionally installed displays for the typical Orange County home, designed
+                  around your style and your budget.
+                </p>
+                <ul className="mb-10 mt-8 space-y-3 text-snow/90">
+                  {["Custom design consultation", "Rooflines, trees, and landscaping", "Professional installation", "Year-end takedown and collection"].map((t) => (
+                    <li key={t} className="flex items-start gap-3">
+                      <Check /> {t}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#contact" className="btn-ghost mt-auto self-start">
+                  Get My Quote
+                </a>
+              </Reveal>
+              <Reveal delay={60} className="glow-card relative flex flex-col rounded-3xl border-gold/40 bg-gradient-to-b from-gold/10 to-transparent p-8 sm:p-10 lg:p-8">
+                <span className="absolute -top-3 right-8 rounded-full bg-gradient-to-r from-berry to-ember px-4 py-1 text-xs font-bold uppercase tracking-[0.2em]">
+                  Showstopper
+                </span>
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Large &amp; Extravagant</p>
+                <p className="mt-4 font-display text-4xl font-semibold leading-tight text-gold-gradient sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">
+                  <PriceRange {...pricing.showstopper} />
+                </p>
+                <p className="mt-4 leading-relaxed text-mist">
+                  For the homes that become a neighborhood destination. Big properties, bold ideas, and
+                  displays designed to stop traffic.
+                </p>
+                <ul className="mb-10 mt-8 space-y-3 text-snow/90">
+                  {["Everything in a classic display", "Large-scale, whole-property design", "Trees, yards, and architectural features", "Year-end takedown and collection"].map((t) => (
+                    <li key={t} className="flex items-start gap-3">
+                      <Check /> {t}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#contact" className="btn-primary mt-auto self-start">
+                  Dream Big With Us
+                </a>
+              </Reveal>
+              <Reveal delay={120} className="glow-card flex flex-col rounded-3xl p-8 sm:p-10 lg:p-8 md:col-span-2 lg:col-span-1">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-ice">Custom</p>
+                <p className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">Quoted for you</p>
+                <p className="mt-4 leading-relaxed text-mist">
+                  Have something truly unique in mind that takes more than just lights? Tell us exactly what
+                  you want to create and we&apos;ll put together a custom quote, since every one-of-a-kind
+                  project is different.
+                </p>
+                <ul className="mb-10 mt-8 space-y-3 text-snow/90">
+                  {["One-of-a-kind ideas and new concepts", "Projects that go beyond lights", "Planned around your exact vision", "Priced by quote, project by project"].map((t) => (
+                    <li key={t} className="flex items-start gap-3">
+                      <Check /> {t}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#contact" className="btn-ghost mt-auto self-start">
+                  Tell Us Your Idea
+                </a>
+              </Reveal>
+            </div>
+            <p className="mt-10 text-center text-sm text-mist">
+              Pricing depends on home size, roof height, and design. Every quote is free and tailored to your home.
+            </p>
+          </div>
+        </section>
+
         {/* ---------------- Stats ---------------- */}
         <section className="relative border-y border-white/10 bg-night-2">
           <dl className="mx-auto grid max-w-7xl grid-cols-2 divide-white/10 px-5 sm:px-8 md:grid-cols-4 md:divide-x">
@@ -375,96 +465,6 @@ export default function Home() {
                 </Reveal>
               ))}
             </ol>
-          </div>
-        </section>
-
-        {/* ---------------- Pricing ---------------- */}
-        <section id="pricing" className="relative overflow-hidden bg-night-2 py-24 sm:py-32">
-          <div className="absolute -right-32 top-10 h-96 w-96 rounded-full bg-berry/20 blur-[120px]" />
-          <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-            <SectionHeading eyebrow="Pricing" title="Honest pricing. Unforgettable results.">
-              Every home is different, so every quote is custom and free. Here&apos;s what most of our
-              customers spend on a seasonal rental, including installation, year-end takedown, and collection.
-            </SectionHeading>
-            <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-gold/20 bg-gold/5 p-6 text-center">
-                <p className="eyebrow">Roofline Lighting</p>
-                <p className="mt-3 font-display text-3xl text-gold">$8–$15 per linear foot</p>
-                <p className="mt-2 text-sm text-mist">Priced by the length of roofline you want illuminated.</p>
-              </div>
-              <div className="rounded-2xl border border-gold/20 bg-gold/5 p-6 text-center">
-                <p className="eyebrow">Tree Lighting</p>
-                <p className="mt-3 font-display text-3xl text-gold">About $100 per tree</p>
-                <p className="mt-2 text-sm text-mist">An average tree uses four strands. Larger trees are quoted individually.</p>
-              </div>
-            </div>
-            <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <Reveal className="glow-card flex flex-col rounded-3xl p-8 sm:p-10 lg:p-8">
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-mist">Most Homes</p>
-                <p className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">
-                  <PriceRange {...pricing.typical} />
-                </p>
-                <p className="mt-4 leading-relaxed text-mist">
-                  Beautiful, professionally installed displays for the typical Orange County home, designed
-                  around your style and your budget.
-                </p>
-                <ul className="mb-10 mt-8 space-y-3 text-snow/90">
-                  {["Custom design consultation", "Rooflines, trees, and landscaping", "Professional installation", "Year-end takedown and collection"].map((t) => (
-                    <li key={t} className="flex items-start gap-3">
-                      <Check /> {t}
-                    </li>
-                  ))}
-                </ul>
-                <a href="#contact" className="btn-ghost mt-auto self-start">
-                  Get My Quote
-                </a>
-              </Reveal>
-              <Reveal delay={60} className="glow-card relative flex flex-col rounded-3xl border-gold/40 bg-gradient-to-b from-gold/10 to-transparent p-8 sm:p-10 lg:p-8">
-                <span className="absolute -top-3 right-8 rounded-full bg-gradient-to-r from-berry to-ember px-4 py-1 text-xs font-bold uppercase tracking-[0.2em]">
-                  Showstopper
-                </span>
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Large &amp; Extravagant</p>
-                <p className="mt-4 font-display text-4xl font-semibold leading-tight text-gold-gradient sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">
-                  <PriceRange {...pricing.showstopper} />
-                </p>
-                <p className="mt-4 leading-relaxed text-mist">
-                  For the homes that become a neighborhood destination. Big properties, bold ideas, and
-                  displays designed to stop traffic.
-                </p>
-                <ul className="mb-10 mt-8 space-y-3 text-snow/90">
-                  {["Everything in a classic display", "Large-scale, whole-property design", "Trees, yards, and architectural features", "Year-end takedown and collection"].map((t) => (
-                    <li key={t} className="flex items-start gap-3">
-                      <Check /> {t}
-                    </li>
-                  ))}
-                </ul>
-                <a href="#contact" className="btn-primary mt-auto self-start">
-                  Dream Big With Us
-                </a>
-              </Reveal>
-              <Reveal delay={120} className="glow-card flex flex-col rounded-3xl p-8 sm:p-10 lg:p-8 md:col-span-2 lg:col-span-1">
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-ice">Custom</p>
-                <p className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-[2rem] xl:text-[2.25rem]">Quoted for you</p>
-                <p className="mt-4 leading-relaxed text-mist">
-                  Have something truly unique in mind that takes more than just lights? Tell us exactly what
-                  you want to create and we&apos;ll put together a custom quote, since every one-of-a-kind
-                  project is different.
-                </p>
-                <ul className="mb-10 mt-8 space-y-3 text-snow/90">
-                  {["One-of-a-kind ideas and new concepts", "Projects that go beyond lights", "Planned around your exact vision", "Priced by quote, project by project"].map((t) => (
-                    <li key={t} className="flex items-start gap-3">
-                      <Check /> {t}
-                    </li>
-                  ))}
-                </ul>
-                <a href="#contact" className="btn-ghost mt-auto self-start">
-                  Tell Us Your Idea
-                </a>
-              </Reveal>
-            </div>
-            <p className="mt-10 text-center text-sm text-mist">
-              Pricing depends on home size, roof height, and design. Every quote is free and tailored to your home.
-            </p>
           </div>
         </section>
 
