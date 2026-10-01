@@ -42,8 +42,8 @@ export default function Header({ logo, name }: { logo: string | null; name: stri
             <Image
               src={logo}
               alt={`${name} logo`}
-              width={1536}
-              height={1024}
+              width={1254}
+              height={1254}
               sizes="160px"
               className="h-16 w-auto object-contain sm:h-[4.5rem] drop-shadow-[0_0_12px_rgb(244_197_106/0.25)]"
               preload

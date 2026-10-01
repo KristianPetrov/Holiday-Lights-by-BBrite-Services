@@ -43,9 +43,9 @@ const CREW_FEATURED = [
   "chris-finn-balancing-ladder-on-corner-of-house.jpg",
 ];
 
-// Header logo (transparent background) and square emblem, if present.
-const PREFERRED_LOGO = "brand/holiday-lights-bbrite-logo.png";
-const PREFERRED_EMBLEM = "holiday-lights-logo.png";
+// Use the extravagant square logo throughout the site's branding.
+const PREFERRED_LOGO = "pictures-of-the-process-of-adding-the-lights/holiday-lights-extravagant-logo.png";
+const PREFERRED_EMBLEM = PREFERRED_LOGO;
 
 const CREW_WORDS = /(crew|install|worker|working|team|progress|process|behind|before|action)/i;
 

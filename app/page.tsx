@@ -168,8 +168,8 @@ export default function Home() {
                 <Image
                   src={logo}
                   alt={`${site.name} logo`}
-                  width={1536}
-                  height={1024}
+                  width={1254}
+                  height={1254}
                   sizes="(min-width: 1024px) 440px, (min-width: 640px) 380px, 280px"
                   preload
                   className="mb-8 h-auto w-[280px] drop-shadow-[0_0_40px_rgb(244_197_106/0.35)] sm:w-[380px] lg:w-[440px]"
