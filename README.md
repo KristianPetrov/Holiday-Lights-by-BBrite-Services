@@ -4,7 +4,7 @@ Marketing site for [holidaylightsoc.com](https://holidaylightsoc.com): custom Ch
 rentals, design, installation, and year-end takedown and collection in coastal
 Orange County, Long Beach, and Cerritos.
 
-Built with Next.js (App Router) and Tailwind CSS. The whole site is prerendered as static HTML.
+Built with Next.js (App Router) and Tailwind CSS. The marketing page is prerendered; one server route looks up addresses for the roofline estimator.
 
 ## Develop
 
@@ -12,6 +12,8 @@ Built with Next.js (App Router) and Tailwind CSS. The whole site is prerendered 
 pnpm install
 pnpm dev      # http://localhost:3000
 pnpm build    # production build
+pnpm lint
+pnpm test
 ```
 
 ## Business details
@@ -19,7 +21,11 @@ pnpm build    # production build
 Phone, email, pricing, and service-area cities live in `lib/site.ts`.
 
 The quote form collects the property address and optional roofline length/tree
-count. It prepares an email in the visitor's email app; the visitor must send it.
+count. Its aerial estimator uses the public U.S. Census geocoder, USGS imagery,
+and a locally hosted Overture building extract. Visitors confirm their building
+or trace the desired roof edges, then apply the approximate length. Manual
+length entry remains available. No Google API key, paid map API, or new subscription
+is required; ordinary hosting bandwidth and function limits still apply. It prepares an email in the visitor's email app; the visitor must send it.
 The estimate uses $8–$15 per linear foot and about $100 per average tree (four
 strands). It is an estimate for the entered items, not a confirmed booking or quote.
 See [the roofline quoting workflow](docs/roofline-quoting.md).

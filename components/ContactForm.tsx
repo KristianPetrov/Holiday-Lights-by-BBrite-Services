@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { formatUsd, site } from "@/lib/site";
 import { estimateLighting } from "@/lib/pricing";
+import RooflineEstimator from "@/components/RooflineEstimator";
 
 /**
- * Quote request form. The site is static, so submitting opens the visitor's
+ * Quote request form. Submitting opens the visitor's
  * email app with the details filled in. Swap this for a form service
  * (Formspree, a CRM webhook, etc.) when one is chosen.
  */
@@ -13,6 +14,9 @@ export default function ContactForm({ email }: { email: string }) {
   const [sent, setSent] = useState(false);
   const [feet, setFeet] = useState("");
   const [trees, setTrees] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [measurementSource, setMeasurementSource] = useState("Manually entered / not measured");
   const estimate = estimateLighting(Number(feet), Number(trees));
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -28,6 +32,7 @@ export default function ContactForm({ email }: { email: string }) {
       `City: ${get("city")}`,
       `Project size: ${get("size")}`,
       `Approximate roofline feet: ${get("feet") || "Please measure for me"}`,
+      `Measurement source: ${measurementSource}`,
       `Average trees: ${get("trees") || "Not specified"}`,
       ...(estimate.max > 0 ? [`Preliminary roofline/tree estimate: ${formatUsd(estimate.min)}–${formatUsd(estimate.max)} (subject to confirmation)`] : []),
       "",
@@ -56,14 +61,14 @@ export default function ContactForm({ email }: { email: string }) {
       </label>
       <label>
         <span className="mb-1.5 block text-sm font-semibold text-mist">City</span>
-        <select name="city" required autoComplete="address-level2" className={field} defaultValue="">
+        <select name="city" required autoComplete="address-level2" className={field} value={city} onChange={(e) => { setCity(e.target.value); if (measurementSource !== "Manually entered / not measured") { setFeet(""); setMeasurementSource("Manually entered / not measured"); } }}>
           <option value="" disabled className="bg-night">Select your city</option>
           {site.serviceArea.map((city) => <option key={city} className="bg-night">{city}</option>)}
         </select>
       </label>
       <label className="sm:col-span-2">
         <span className="mb-1.5 block text-sm font-semibold text-mist">Property street address</span>
-        <input name="address" required autoComplete="street-address" className={field} placeholder="Street number and street name" aria-describedby="address-help" />
+        <input name="address" required autoComplete="street-address" className={field} placeholder="Street number and street name" aria-describedby="address-help" value={address} onChange={(e) => { setAddress(e.target.value); if (measurementSource !== "Manually entered / not measured") { setFeet(""); setMeasurementSource("Manually entered / not measured"); } }} />
         <span id="address-help" className="mt-2 block text-sm text-mist">We use your address to review the roofline for your free quote. No measuring needed on your end.</span>
       </label>
       <label className="sm:col-span-2">
@@ -78,9 +83,10 @@ export default function ContactForm({ email }: { email: string }) {
       </label>
       <fieldset className="grid gap-4 rounded-2xl border border-gold/20 bg-gold/5 p-4 sm:col-span-2 sm:grid-cols-2">
         <legend className="px-2 text-sm font-semibold text-gold">Optional: estimate your roofline &amp; trees</legend>
+        <RooflineEstimator address={address} city={city} onUse={(length, source) => { setFeet(String(length)); setMeasurementSource(source); }} />
         <label>
           <span className="mb-1.5 block text-sm font-semibold text-mist">Roofline length (feet)</span>
-          <input name="feet" type="number" min="0" step="0.1" inputMode="decimal" value={feet} onChange={(e) => setFeet(e.target.value)} className={field} placeholder="e.g. 150" />
+          <input name="feet" type="number" min="0" step="0.1" inputMode="decimal" value={feet} onChange={(e) => { setFeet(e.target.value); setMeasurementSource("Manually entered / not measured"); }} className={field} placeholder="e.g. 150" />
         </label>
         <label>
           <span className="mb-1.5 block text-sm font-semibold text-mist">Number of average trees</span>

@@ -1,0 +1,27 @@
+Building outlines: Overture Maps Foundation, release 2026-09-23.1.
+Regional extract and coordinate rounding by Holiday Lights by BBrite Services.
+Coverage bounding box: -118.26, 33.55, -117.75, 33.91.
+
+This building database is available under the Open Database License (ODbL) 1.0:
+https://opendatacommons.org/licenses/odbl/1-0/
+Individual contents are available under the Database Contents License:
+https://opendatacommons.org/licenses/dbcl/1-0/
+
+Contains data from:
+- Microsoft Global ML Building Footprints (ODbL 1.0).
+- OpenStreetMap contributors (ODbL 1.0): https://www.openstreetmap.org/copyright
+- Esri Community Maps contributors (CC BY 4.0).
+- USGS Lidar.
+
+Full upstream attribution and licensing:
+https://docs.overturemaps.org/attribution/#buildings
+
+Downloadable derivative database: /roof-data/index.json lists all tiles.
+Each /roof-data/{tile}.json.gz contains the gzip-compressed JSON geometry.
+Coordinates are longitude/latitude in WGS84. Each record has an id and exterior
+ring; ring closure is implicit. Holes and non-geometric properties are omitted.
+The derivative database and extraction script remain available under ODbL 1.0.
+
+Aerial map services and data available from U.S. Geological Survey,
+National Geospatial Program. Imagery credits: USDA, USGS The National Map.
+Address lookup: U.S. Census Bureau Public Geocoder.
