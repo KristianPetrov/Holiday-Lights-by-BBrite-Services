@@ -9,7 +9,7 @@ export const site = {
   yearsInBusiness: 20,
   tagline: "Seasonal Christmas light rentals, installation, and year-end removal.",
   description:
-    "Holiday Lights by BBrite Services provides seasonal Christmas light rentals, custom design, installation, and year-end removal in Newport Beach, Long Beach, Sunset Beach, Seal Beach, Huntington Beach, Corona del Mar, and Cerritos. 20 years of bringing the Christmas spirit home.",
+    "Holiday Lights by BBrite Services provides seasonal Christmas light rentals, custom design, installation, and year-end removal in Newport Beach, Long Beach, Sunset Beach, Seal Beach, Huntington Beach, Corona del Mar, Los Alamitos, and Cerritos. 20 years of bringing the Christmas spirit home.",
 
   phoneDisplay: "(714) 876-7622",
   phoneHref: "tel:+17148767622",
@@ -30,6 +30,7 @@ export const site = {
     "Seal Beach",
     "Huntington Beach",
     "Corona del Mar",
+    "Los Alamitos",
     "Cerritos",
   ],
 } as const;

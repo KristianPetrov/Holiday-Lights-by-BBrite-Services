@@ -42,6 +42,7 @@ export const metadata: Metadata = {
     "Sunset Beach Christmas lights",
     "Corona del Mar Christmas lights",
     "Cerritos Christmas lights",
+    "Los Alamitos Christmas lights",
     "Newport Beach Christmas lights",
     "Huntington Beach Christmas lights",
   ],
