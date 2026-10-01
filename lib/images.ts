@@ -44,7 +44,7 @@ const CREW_FEATURED = [
 ];
 
 // Use the extravagant square logo throughout the site's branding.
-const PREFERRED_LOGO = "pictures-of-the-process-of-adding-the-lights/holiday-lights-extravagant-logo.png";
+const PREFERRED_LOGO = "brand/holiday-lights-extravagant-logo-transparent.png";
 const PREFERRED_EMBLEM = PREFERRED_LOGO;
 
 const CREW_WORDS = /(crew|install|worker|working|team|progress|process|behind|before|action)/i;
