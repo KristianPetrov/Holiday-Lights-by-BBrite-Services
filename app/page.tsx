@@ -196,6 +196,12 @@ export default function Home() {
                 Seasonal Christmas light rentals, custom design, professional installation, and year-end takedown.
                 You dream it. We light it.
               </p>
+              <div className="mt-6 max-w-xl rounded-2xl border border-gold/30 bg-night/60 px-5 py-4">
+                <p className="font-display text-xl font-semibold text-gold">We guarantee our work.</p>
+                <p className="mt-2 text-sm leading-relaxed text-snow/90 sm:text-base">
+                  If any lights fall or fail, we&apos;ll return within 48 hours to repair or replace them.
+                </p>
+              </div>
               <p className="mt-5 max-w-lg text-sm font-semibold text-gold">
                 Book now before we sell out near the end of November.
               </p>
