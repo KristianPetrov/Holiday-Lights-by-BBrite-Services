@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { formatUsd, site } from "@/lib/site";
-import { estimateLighting } from "@/lib/pricing";
+import { estimateLighting, houseLightingFeet } from "@/lib/pricing";
 import RooflineEstimator from "@/components/RooflineEstimator";
 
 /**
@@ -18,6 +18,7 @@ export default function ContactForm({ email }: { email: string }) {
   const [city, setCity] = useState("");
   const [measurementSource, setMeasurementSource] = useState("Manually entered / not measured");
   const estimate = estimateLighting(Number(feet), Number(trees));
+  const lightingFeet = houseLightingFeet(Number(feet));
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -31,7 +32,8 @@ export default function ContactForm({ email }: { email: string }) {
       `Property address: ${get("address")}`,
       `City: ${get("city")}`,
       `Project size: ${get("size")}`,
-      `Approximate roofline feet: ${get("feet") || "Please measure for me"}`,
+      `Approximate full house perimeter (feet): ${get("feet") || "Please measure for me"}`,
+      `Estimated front and sides lighting (50% of perimeter): ${feet ? `${lightingFeet} feet` : "Please measure for me"}`,
       `Measurement source: ${measurementSource}`,
       `Average trees: ${get("trees") || "Not specified"}`,
       ...(estimate.max > 0 ? [`Preliminary roofline/tree estimate: ${formatUsd(estimate.min)}–${formatUsd(estimate.max)} (subject to confirmation)`] : []),
@@ -62,7 +64,7 @@ export default function ContactForm({ email }: { email: string }) {
         <legend className="px-2 text-sm font-semibold text-gold">Estimate your lights (optional)</legend>
         <RooflineEstimator address={address} city={city} onUse={(length, source) => { setFeet(String(length)); setMeasurementSource(source); }} />
         <label>
-          <span className="mb-1.5 block text-sm font-semibold text-mist">Perimeter (feet)</span>
+          <span className="mb-1.5 block text-sm font-semibold text-mist">Full house perimeter (feet)</span>
           <input name="feet" type="number" min="0" step="0.1" inputMode="decimal" value={feet} onChange={(e) => { setFeet(e.target.value); setMeasurementSource("Manually entered / not measured"); }} className={`${field} !px-3 !py-2`} placeholder="e.g. 150" />
         </label>
         <label>
@@ -73,12 +75,12 @@ export default function ContactForm({ email }: { email: string }) {
           <p aria-live="polite" aria-atomic="true" className="font-semibold text-gold">
             {estimate.max > 0 ? `Estimated total: ${formatUsd(estimate.min)}–${formatUsd(estimate.max)}` : "Select your house or enter feet and trees."}
           </p>
-          <p className="mt-1 text-xs text-mist">$8–$15/ft + about $100/tree. Final quote confirmed by our team.</p>
+          <p className="mt-1 text-xs text-mist">House lighting uses half the perimeter for the front and sides{lightingFeet > 0 ? ` (${lightingFeet} ft)` : ""}. $8–$12/ft + about $100/tree. Final quote confirmed by our team.</p>
         </div>
         <details className="text-xs leading-relaxed text-mist col-span-2">
           <summary className="cursor-pointer font-semibold text-snow">How is the house perimeter estimated?</summary>
-          <p className="mt-3">Select the outline around your house in the aerial view. Its full exterior perimeter is applied to the price estimate automatically. Street View and Google&apos;s satellite view can help you identify the correct house.</p>
-          <p className="mt-2">This is the full building perimeter; roof slopes, overhangs, access, tree size, and front-only lighting can change the final quote. An average tree uses four strands. You can leave the length blank and let us measure it.</p>
+          <p className="mt-3">Select the outline around your house in the aerial view or enter its full exterior perimeter. We use 50% of that perimeter to estimate lighting for the front and sides. Street View and Google&apos;s satellite view can help you identify the correct house.</p>
+          <p className="mt-2">Roof slopes, overhangs, access, tree size, and your chosen lighting coverage can change the final quote. An average tree uses four strands. You can leave the perimeter blank and let us measure it.</p>
         </details>
       </fieldset>
       <label className="sm:col-span-1">

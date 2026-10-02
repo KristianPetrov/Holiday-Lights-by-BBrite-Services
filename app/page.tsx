@@ -54,7 +54,7 @@ const steps = [
 const faqs = [
   {
     q: "How much does professional Christmas light installation cost?",
-    a: `Classic displays typically run ${typicalRange}; larger displays run ${showRange}. Roofline lighting is approximately $8–$15 per linear foot. An average tree uses four strands and costs approximately $100 per tree. Your seasonal rental includes installation, year-end takedown, and collection. Final pricing depends on the design, roof height, and access.`,
+    a: `Classic displays typically run ${typicalRange}; larger displays run ${showRange}. Roofline lighting is approximately $8–$12 per linear foot. An average tree uses four strands and costs approximately $100 per tree. Your seasonal rental includes installation, year-end takedown, and collection. Final pricing depends on the design, roof height, and access.`,
   },
   {
     q: "Are the lights rented, and when are they removed?",
@@ -216,7 +216,7 @@ export default function Home() {
             <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-gold/20 bg-gold/5 p-6 text-center">
                 <p className="eyebrow">Roofline Lighting</p>
-                <p className="mt-3 font-display text-3xl text-gold">$8–$15 per linear foot</p>
+                <p className="mt-3 font-display text-3xl text-gold">$8–$12 per linear foot</p>
                 <p className="mt-2 text-sm text-mist">Priced by the length of roofline you want illuminated.</p>
               </div>
               <div className="rounded-2xl border border-gold/20 bg-gold/5 p-6 text-center">

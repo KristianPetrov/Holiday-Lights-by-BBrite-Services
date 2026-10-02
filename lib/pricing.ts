@@ -1,7 +1,11 @@
 import { site } from "@/lib/site";
 
-export function estimateLighting(feet: number, trees: number) {
-  const length = Number.isFinite(feet) ? Math.max(0, feet) : 0;
+export function houseLightingFeet(perimeter: number) {
+  return Number.isFinite(perimeter) ? Math.max(0, perimeter) / 2 : 0;
+}
+
+export function estimateLighting(perimeter: number, trees: number) {
+  const length = houseLightingFeet(perimeter);
   const count = Number.isFinite(trees) ? Math.max(0, Math.floor(trees)) : 0;
   return {
     min: length * site.pricing.roofline.min + count * site.pricing.tree,

@@ -37,8 +37,10 @@ test('projection round trips and ground-scale view dimensions are correct', () =
   assert.ok(Math.abs(geo.distance(geo.unproject([bounds[0], centerY]), geo.unproject([bounds[2], centerY])) - 240) < 0.1);
 });
 
-test('roofline and tree rates use feet and per-tree pricing', () => {
-  assert.deepEqual(estimateLighting(150, 3), { min: 1500, max: 2550 });
+test('house estimate uses half the perimeter and full per-tree pricing', () => {
+  assert.deepEqual(estimateLighting(300, 3), { min: 1500, max: 2100 });
+  assert.deepEqual(estimateLighting(150, 0), { min: 600, max: 900 });
+  assert.deepEqual(estimateLighting(150, 3), { min: 900, max: 1200 });
   assert.deepEqual(estimateLighting(0, 4), { min: 400, max: 400 });
 });
 

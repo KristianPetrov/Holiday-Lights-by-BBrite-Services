@@ -23,11 +23,12 @@ Phone, email, pricing, and service-area cities live in `lib/site.ts`.
 The quote form collects the property address and optional roofline length/tree
 count. Its aerial estimator uses the public U.S. Census geocoder, USGS imagery,
 and a locally hosted Overture building extract. Visitors select their building outline to automatically apply its approximate
-full perimeter. Free links to Google Street View and satellite imagery help
+full perimeter. The calculator uses half that perimeter to estimate lighting for
+the front and sides of the house. Free links to Google Street View and satellite imagery help
 confirm the house in a separate tab. No drawing tools are shown. Manual
-length entry remains available. No Google API key, paid map API, or new subscription
+full perimeter entry remains available. No Google API key, paid map API, or new subscription
 is required; ordinary hosting bandwidth and function limits still apply. It prepares an email in the visitor's email app; the visitor must send it.
-The estimate uses $8–$15 per linear foot and about $100 per average tree (four
+The estimate uses $8–$12 per linear foot and about $100 per average tree (four
 strands). It is an estimate for the entered items, not a confirmed booking or quote.
 See [the roofline quoting workflow](docs/roofline-quoting.md).
 

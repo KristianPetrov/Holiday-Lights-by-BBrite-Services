@@ -18,7 +18,7 @@ export const site = {
   pricing: {
     typical: { min: 1000, max: 3000 },
     showstopper: { min: 4000, max: 9000 },
-    roofline: { min: 8, max: 15 },
+    roofline: { min: 8, max: 12 },
     tree: 100,
     strandsPerTree: 4,
   },

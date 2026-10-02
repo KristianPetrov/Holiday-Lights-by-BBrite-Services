@@ -11,7 +11,8 @@ limits. There is no per-lookup fee from these mapping services.
    store them. Census coordinates can sit on the street, so the visitor must
    visually confirm the correct building on the aerial image.
 2. Tap the outline around the house for its approximate full exterior perimeter.
-   Selection automatically applies rounded linear feet to the calculator. No
+   Selection automatically applies rounded perimeter feet to the calculator,
+   which uses half the perimeter for front and sides lighting. No
    drawing is needed. Zoom and move the view to find the right house.
 3. Optional **Open Street View** and **Open Google Satellite View** links show
    clearer reference views in another tab, with no API key. Street View coverage
@@ -25,9 +26,10 @@ limits. There is no per-lookup fee from these mapping services.
    issuing a final quote. A horizontal building footprint is a rough starting
    point, not the exact roofline: eaves, gables, and multiple roof levels differ.
    Ask for photos or measure on site. Do not guess roof pitch from the image.
-5. Preliminary roofline range = linear feet × $8–$15. An average tree uses four
+5. Preliminary house range = full perimeter ÷ 2 × $8–$12. An average tree uses four
    strands and costs approximately $100 per tree, not per strand. Example:
-   150 feet plus three average trees = $1,500–$2,550. Larger trees and extra
+   300 perimeter feet gives 150 lighting feet; plus three average trees =
+   $1,500–$2,100. Larger trees and extra
    decorations need individual quotes.
 6. Confirm the scope and final price, including seasonal light rental, design,
    installation, year-end takedown and collection. Lights remain BBrite's property.
@@ -39,7 +41,9 @@ limits. There is no per-lookup fee from these mapping services.
 
 Customers are not asked to draw or trace their house. For final verification,
 the team can also search the address in https://earth.google.com/web/, select
-Measure, trace each desired roofline, choose feet, and enter the total manually.
+Measure, trace each desired roofline, and choose feet to verify the final quote.
+The website's manual field expects the full house perimeter and halves it for
+the preliminary estimate; keep actual lighting measurements separate for review.
 Google Earth web measurements do not account for elevation changes. For a known
 horizontal run and vertical rise, sloped length is sqrt(run² + rise²).
 See [Google's measurement instructions](https://support.google.com/earth/answer/9010337?co=GENIE.Platform%3DDesktop&hl=en).
