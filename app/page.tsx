@@ -37,6 +37,11 @@ const services = [
     icon: <path d="M4 20h16M7 20V9l5-5 5 5v11M10 20v-5h4v5" strokeLinejoin="round" strokeLinecap="round" />,
   },
   {
+    title: "Seasonal Maintenance",
+    body: site.maintenance,
+    icon: <path d="M12 3l7 3v5c0 5-7 10-7 10S5 16 5 11V6l7-3zm-3 9 2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />,
+  },
+  {
     title: "Year-End Takedown & Collection",
     body: "At the end of the year, we take down the display and collect our rented lights. No ladders, tangled cords, or lights to store. You just enjoy the holidays.",
     icon: <path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3M18 3v4h-4M6 21v-4h4" strokeLinecap="round" strokeLinejoin="round" />,
@@ -59,6 +64,10 @@ const faqs = [
   {
     q: "Are the lights rented, and when are they removed?",
     a: "Yes. The lights are a seasonal rental and remain ours. At the end of the year, our crew takes them down and takes them back. You do not need to buy or store the lights.",
+  },
+  {
+    q: "What if my lights fall or stop working during the season?",
+    a: site.maintenance,
   },
   {
     q: "Can you bring my own idea to life?",
@@ -211,7 +220,7 @@ export default function Home() {
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
             <SectionHeading eyebrow="Pricing" title="Honest pricing. Unforgettable results.">
               Every home is different, so every quote is custom and free. Here&apos;s what most of our
-              customers spend on a seasonal rental, including installation, year-end takedown, and collection.
+              customers spend on a seasonal rental, including installation, seasonal maintenance, year-end takedown, and collection.
             </SectionHeading>
             <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-gold/20 bg-gold/5 p-6 text-center">
@@ -236,7 +245,7 @@ export default function Home() {
                   around your style and your budget.
                 </p>
                 <ul className="mb-10 mt-8 space-y-3 text-snow/90">
-                  {["Custom design consultation", "Rooflines, trees, and landscaping", "Professional installation", "Year-end takedown and collection"].map((t) => (
+                  {["Custom design consultation", "Rooflines, trees, and landscaping", "Professional installation", "Seasonal maintenance with repairs within 48 hours", "Year-end takedown and collection"].map((t) => (
                     <li key={t} className="flex items-start gap-3">
                       <Check /> {t}
                     </li>
@@ -370,7 +379,7 @@ export default function Home() {
               From the first sketch to year-end takedown and collection, we handle the whole season so
               you can simply enjoy it.
             </SectionHeading>
-            <ul className="mt-16 grid gap-6 md:grid-cols-3">
+            <ul className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               {services.map((s, i) => (
                 <Reveal as="li" key={s.title} delay={i * 60} className="glow-card rounded-3xl p-8">
                   <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-gold/25 to-ember/10 text-gold ring-1 ring-gold/30">

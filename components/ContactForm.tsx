@@ -24,11 +24,18 @@ export default function ContactForm({ email }: { email: string }) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const get = (k: string) => String(data.get(k) ?? "").trim();
-    const subject = `Christmas lights quote request from ${get("name")}`;
+    const subject = `Holiday Lights by BBrite | Quote request from ${get("name")}`;
     const body = [
+      "HOLIDAY LIGHTS BY BBRITE SERVICES",
+      "Your holiday display starts here",
+      "──────────────────────────────",
+      "",
+      "CONTACT DETAILS",
       `Name: ${get("name")}`,
-      `Phone: ${get("phone")}`,
+      `Phone: ${get("phone") || "Not provided"}`,
       `Email: ${get("email")}`,
+      "",
+      "THE PROPERTY & DISPLAY",
       `Property address: ${get("address")}`,
       `City: ${get("city")}`,
       `Project size: ${get("size")}`,
@@ -36,10 +43,23 @@ export default function ContactForm({ email }: { email: string }) {
       `Estimated front and sides lighting (50% of perimeter): ${feet ? `${lightingFeet} feet` : "Please measure for me"}`,
       `Measurement source: ${measurementSource}`,
       `Average trees: ${get("trees") || "Not specified"}`,
-      ...(estimate.max > 0 ? [`Preliminary roofline/tree estimate: ${formatUsd(estimate.min)}–${formatUsd(estimate.max)} (subject to confirmation)`] : []),
       "",
-      get("message"),
-    ].join("\n");
+      "PRELIMINARY ESTIMATE",
+      ...(estimate.max > 0 ? [`${formatUsd(estimate.min)}–${formatUsd(estimate.max)}`, "Based on half the house perimeter at $8–$12/ft plus about $100 per average tree."] : ["Please measure my property and prepare a custom quote."]),
+      "Final design, coverage, and pricing subject to team confirmation.",
+      "",
+      "MY HOLIDAY VISION",
+      get("message") || "I'd love your help designing my holiday display.",
+      "",
+      "INCLUDED WITH YOUR SEASONAL RENTAL",
+      "Custom design • Professional installation • Seasonal maintenance",
+      "Year-end takedown and collection. Lights remain BBrite's property.",
+      site.maintenance,
+      "",
+      "──────────────────────────────",
+      site.url,
+      site.phoneDisplay,
+    ].join("\r\n");
     window.location.assign(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
     setSent(true);
   }
@@ -114,6 +134,10 @@ export default function ContactForm({ email }: { email: string }) {
           placeholder="Rooflines, trees, colors, warm white or multicolor... For custom projects, describe exactly what you want to create."
         />
       </label>
+      <div className="rounded-2xl border border-gold/20 bg-gold/5 p-4 sm:col-span-2">
+        <p className="font-display text-lg font-semibold text-gold">Seasonal care included</p>
+        <p className="mt-1 text-sm leading-relaxed text-mist">{site.maintenance}</p>
+      </div>
       <div className="flex flex-col items-start gap-3 sm:col-span-2 sm:flex-row sm:items-center">
         <button type="submit" className="btn-primary">
           Prepare My Quote Request

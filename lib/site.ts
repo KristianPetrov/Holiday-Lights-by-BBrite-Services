@@ -14,6 +14,7 @@ export const site = {
   phoneDisplay: "(714) 876-7622",
   phoneHref: "tel:+17148767622",
   email: "bbriteservices@gmail.com",
+  maintenance: "We maintain your lights throughout the season. If any lights fall or fail, contact us and we will repair or replace them within 48 hours.",
 
   pricing: {
     typical: { min: 1000, max: 3000 },
